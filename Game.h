@@ -8,7 +8,7 @@ class Game{
 	public:
 		Game();
 	private:
-
+		Deck d;
 };
 
 #endif

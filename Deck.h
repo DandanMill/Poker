@@ -1,15 +1,22 @@
 #ifndef DECK
 #define DECK
 
+#include <string>
+#include <utility>
+
 class Deck{
 	public:
 	Deck();
 	void printDeck();
 	void setCard(int num,int suit,int player);
-	int getCard(int num,int suit);
+	std::string returnSuit(int suit);
+	std::string returnCard(int num);
+	void showHand(int player);
+	void initializeHand(int player);
+	void checkHand(int player);
 	private:
 	int deck[4][13];
-
+	std::pair <int, int> cards[5];
 };
 
 
