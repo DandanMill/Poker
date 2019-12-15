@@ -13,7 +13,7 @@ class Deck{
 	std::string returnCard(int num);
 	void showHand(int player);
 	void initializeHand(int player);
-	void checkHand(int player);
+	std::pair <int, int> checkHand(int player);
 	private:
 	int deck[4][13];
 	std::pair <int, int> cards[5];

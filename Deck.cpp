@@ -1,17 +1,15 @@
 #include "Deck.h"
 #include <iostream>
 
-Deck::Deck()
-{
+Deck::Deck(){
   for(int i = 0; i  < 4; i++){
   	for(int j = 0; j < 13;j++){
-		deck[i][j] = 0;	
+		deck[i][j] = 0;
     }
   }
 }
 
-void Deck::printDeck()
-{
+void Deck::printDeck(){
   for(int i = 0; i < 4; i++){
      for(int j = 0; j < 13;j++){
 	     std::cout << deck[i][j];
@@ -20,8 +18,7 @@ void Deck::printDeck()
   }
 }
 
-void Deck::setCard(int num,int suit,int player)
-{
+void Deck::setCard(int num,int suit,int player){
    	if(deck[suit-1][num-1] == 0)
 		deck[suit-1][num-1] = player;
 
@@ -30,7 +27,7 @@ void Deck::setCard(int num,int suit,int player)
 }
 
 std::string Deck::returnSuit(int suit) {
-	suit--;
+
 	switch (suit) {
 	case 0:
 		return "Hearts";
@@ -51,7 +48,7 @@ std::string Deck::returnSuit(int suit) {
 }
 
 std::string Deck::returnCard(int num) {
-	num--;
+
 	switch (num) {
 	case 0:
 		return "A";
@@ -108,11 +105,11 @@ void Deck::showHand(int player) {
 void Deck::initializeHand(int player) {
 	int index = 0;
 	while (index < 5) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 13; j++) {
-				if (deck[i][j] == player) {
-					cards[index].first = j + 1;
-					cards[index].second = i + 1;
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (deck[j][i] == player) {
+					cards[index].first = i;
+					cards[index].second = j;
 					index++;
 				}
 			}
@@ -120,7 +117,79 @@ void Deck::initializeHand(int player) {
 	}
 }
 
-void Deck::checkHand(int player) {
-	initializeHand(player);
+std::pair <int, int> Deck::checkHand(int player) {
 
+	initializeHand(player);
+  int cardCount = 0;
+  int suitCount = 0;
+  //Check for num of cards
+  int numOfCards[13] = {0};
+  bool visited[13] = {false};
+  for(int i = 0; i < 5; i++){
+      if(visited[cards[i].first] == true){
+        continue;
+      }
+      visited[cards[i].first] = true;
+      for(int j = i+1; j < 5;j++){
+        if(cards[i].first == cards[j].first){
+            numOfCards[cards[i].first]++;
+          }
+      }
+  }
+  for(int i = 0; i < 13; i++){
+    if(numOfCards[i] > 0)
+      numOfCards[i]++;
+    if(numOfCards[i] == 4){
+      cardCount += 8;
+    }else
+    cardCount += numOfCards[i];
+  }
+  //Check for num of Suits
+  int numOfSuits[4] = {0};
+  for(int i = 0; i< 13;i++){
+    visited[i] = false;
+  }
+  for(int i = 0; i< 5;i++){
+    if(visited[cards[i].second] == true){
+      continue;
+    }
+    visited[cards[i].second] = true;
+    for(int j = i+1; j< 5;j++){
+      if(cards[i].second == cards[j].second){
+        numOfSuits[cards[i].second]++;
+      }
+    }
+  }
+
+  //Checked for num of cards
+  //Checked for num of suits
+  for(int i = 0; i < 4;i++){
+    if(numOfSuits[i] > 0)
+      numOfSuits[i]++;
+    suitCount += numOfSuits[i];
+    }
+  //checks for full house
+  if(cardCount == 5){
+    cardCount = 7;
+  }
+
+  //checks for straight
+  if(cardCount == 0){
+    for(int i = 1; i < 5; i++){
+      if(cards[i].first - cards[i-1].first == 1){
+        cardCount = 5;
+      }
+      else{
+        cardCount = 0;
+      }
+    }
+  }
+
+
+
+
+  std::pair <int, int> ret;
+  ret.first = cardCount;
+  ret.second = suitCount;
+  return ret;
 }
