@@ -10,6 +10,7 @@ class Game{
 	public:
 		Game();
 		void Round();
+		bool isPlayersCalled();
 	private:
 		Deck d;
 		std::vector<Player> players;

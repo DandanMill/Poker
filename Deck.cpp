@@ -35,7 +35,7 @@ int Deck::setCard(int num,int suit,int player){
 
 void Deck::dealCards(int player){
   shuffleDeck();
-  srand(time(NULL)); 
+  srand(time(NULL));
   int index = 1;
   while(index <= 5){
     if(setCard(rand() % 13 + 1, rand() % 4 + 1,1) == 0){
