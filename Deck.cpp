@@ -34,11 +34,10 @@ int Deck::setCard(int num,int suit,int player){
 }
 
 void Deck::dealCards(int player){
-  shuffleDeck();
   srand(time(NULL));
-  int index = 1;
-  while(index <= 5){
-    if(setCard(rand() % 13 + 1, rand() % 4 + 1,1) == 0){
+  int index = 0;
+  while(index < 5){
+    if(setCard(rand() % 13 + 1, rand() % 4 + 1,player) == 0){
       index++;
     }
   }
@@ -125,11 +124,11 @@ void Deck::showHand(int player) {
 
 void Deck::initializeHand(int player) {
 	int index = 0;
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 13; j++) {
 				if (deck[j][i] == player) {
-					cards[index].first = i;
-					cards[index].second = j;
+					cards[index].first = j;
+					cards[index].second = i;
 					index++;
 
 			}

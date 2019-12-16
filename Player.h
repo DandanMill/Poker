@@ -3,15 +3,18 @@
 
 class Player{
 public:
-  Player();
+  Player(int _id);
   int getMoney();
   int setMoney(int _money);
   bool getCalled();
   void setCalled(bool b);
+  void resetCF();
   int Play(int maxBet);
 private:
+  int id;
   int money;
   bool called;
+  bool folded;
 };
 
 #endif

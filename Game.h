@@ -10,6 +10,8 @@ class Game{
 	public:
 		Game();
 		void Round();
+		void Playing();
+		void switchCards();
 		bool isPlayersCalled();
 	private:
 		Deck d;

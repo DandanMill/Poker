@@ -1,17 +1,30 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(){
+Player::Player(int _id){
   money = 1000;
   called = false;
+  folded = false;
+  id = _id;
+
 }
 
 bool Player::getCalled(){
-  return called;
+  if(!called && !folded){
+    return false;
+  }
+  else{
+    return true;
+  }
 }
 
 void Player::setCalled(bool b){
   called = b;
+}
+
+void Player::resetCF(){
+  called = false;
+  folded = false;
 }
 
 int Player::getMoney(){
@@ -26,7 +39,7 @@ int Player::Play(int maxBet){
    int raise = 0;
    std::cout << "(C/R/F)\n";
    std::cin >> option;
-   while(!called){
+   while(!getCalled()){
    switch(option){
      case 'c':
      case 'C':
@@ -42,7 +55,7 @@ int Player::Play(int maxBet){
           return maxBet+raise;
      case 'f':
      case 'F':
-        called = true;
+        folded = true;
         return maxBet;
 
 
