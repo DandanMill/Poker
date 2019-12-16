@@ -1,15 +1,28 @@
 #include "Game.h"
 #include <utility>
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+//ToDo: Make Editable Mode
 
 Game::Game(){
+      int option = 0;
+      std::cout << "Hi Welcome to the Poker Game\n1: Play\n2: Make Editable Mode";
+      std::cin >> option;
+      switch(option){
+        case 1:
+          //There will be code here(duh!)
+          break;
+        case 2:
+          editableMode();
+          break;
+        default:
+          break;
 
-	d.setCard(1,1,1);
-	d.setCard(2,1,1);
-	d.setCard(3,1,1);
-	d.setCard(4,1,1);
-	d.setCard(1,1,1);
-	//d.printDeck();
-	d.showHand(1);
-  std::cout << "\n\n\n" << d.checkHand(1).first << " " << d.checkHand(1).second << "\n";
+      }
+
+}
+
+void Game::editableMode(){
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << "Welcome to the editable mode!";
 }
