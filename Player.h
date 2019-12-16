@@ -8,6 +8,7 @@ public:
   void setMoney(int _money);
   bool getCalled();
   void setCalled(bool b);
+  int getId();
   void resetCF();
   int Play(int maxBet);
 private:

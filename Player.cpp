@@ -9,6 +9,10 @@ Player::Player(int _id){
 
 }
 
+int Player::getId(){
+  return id;
+}
+
 bool Player::getCalled(){
   if(!called && !folded){
     return false;
