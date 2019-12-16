@@ -2,15 +2,17 @@
 #define GAME
 
 #include "Deck.h"
+#include "Player.h"
+#include <vector>
 
 class Game{
 
 	public:
 		Game();
-		void editableMode();
-		void dealCards(int player);
+		void Round();
 	private:
 		Deck d;
+		std::vector<Player> players;
 };
 
 #endif
