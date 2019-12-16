@@ -1,5 +1,7 @@
 #include "Deck.h"
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 Deck::Deck(){
   shuffleDeck();
@@ -22,13 +24,27 @@ void Deck::printDeck(){
   }
 }
 
-void Deck::setCard(int num,int suit,int player){
-   	if(deck[suit-1][num-1] == 0)
+int Deck::setCard(int num,int suit,int player){
+    if(deck[suit-1][num-1] == 0){
 		deck[suit-1][num-1] = player;
-
+    return 0;
+  }
 	else
-		std::cout << "Error this card is already taken\n";
+		return -1;
 }
+
+void Deck::dealCards(int player){
+  shuffleDeck();
+  srand(time(NULL)); 
+  int index = 1;
+  while(index <= 5){
+    if(setCard(rand() % 13 + 1, rand() % 4 + 1,1) == 0){
+      index++;
+    }
+  }
+}
+
+
 
 
 std::string Deck::returnSuit(int suit) {
