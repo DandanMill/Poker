@@ -126,7 +126,7 @@ void Deck::initializeHand(int player) {
 	int index = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 13; j++) {
-				if (deck[j][i] == player) {
+				if (deck[i][j] == player) {
 					cards[index].first = j;
 					cards[index].second = i;
 					index++;

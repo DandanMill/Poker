@@ -30,7 +30,7 @@ void Player::resetCF(){
 int Player::getMoney(){
   return money;
 }
-int Player::setMoney(int _money){
+void Player::setMoney(int _money){
   money = _money;
 }
 

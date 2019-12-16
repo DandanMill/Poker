@@ -5,7 +5,7 @@ class Player{
 public:
   Player(int _id);
   int getMoney();
-  int setMoney(int _money);
+  void setMoney(int _money);
   bool getCalled();
   void setCalled(bool b);
   void resetCF();
