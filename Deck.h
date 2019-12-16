@@ -7,6 +7,7 @@
 class Deck{
 	public:
 	Deck();
+	void shuffleDeck();
 	void printDeck();
 	void setCard(int num,int suit,int player);
 	std::string returnSuit(int suit);

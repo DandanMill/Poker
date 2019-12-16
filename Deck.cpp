@@ -2,9 +2,13 @@
 #include <iostream>
 
 Deck::Deck(){
-  for(int i = 0; i  < 4; i++){
-  	for(int j = 0; j < 13;j++){
-		deck[i][j] = 0;
+  shuffleDeck();
+}
+
+void Deck::shuffleDeck(){
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 13; j++){
+      deck[i][j] = 0;
     }
   }
 }
@@ -25,6 +29,7 @@ void Deck::setCard(int num,int suit,int player){
 	else
 		std::cout << "Error this card is already taken\n";
 }
+
 
 std::string Deck::returnSuit(int suit) {
 
@@ -110,7 +115,7 @@ void Deck::initializeHand(int player) {
 					cards[index].first = i;
 					cards[index].second = j;
 					index++;
-				
+
 			}
 		}
 	}
@@ -118,7 +123,7 @@ void Deck::initializeHand(int player) {
 			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
 			exit(-1);
 	}
-		
+
 }
 
 std::pair <int, int> Deck::checkHand(int player) {

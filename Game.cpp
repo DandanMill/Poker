@@ -7,7 +7,7 @@
 
 Game::Game(){
       int option = 0;
-      std::cout << "Hi Welcome to the Poker Game\n1: Play\n2: Make Editable Mode";
+      std::cout << "Hi Welcome to the Poker Game\n1: Play\n2: Make Editable Mode\n";
       std::cin >> option;
       switch(option){
         case 1:
@@ -24,5 +24,5 @@ Game::Game(){
 }
 
 void Game::editableMode(){
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << "Welcome to the editable mode!";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n" << "Welcome to the editable mode!\n";
 }
