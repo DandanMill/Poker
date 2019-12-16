@@ -23,7 +23,7 @@ void Deck::setCard(int num,int suit,int player){
 		deck[suit-1][num-1] = player;
 
 	else
-		std::cout << "This Card is already taken";
+		std::cout << "Error this card is already taken\n";
 }
 
 std::string Deck::returnSuit(int suit) {
@@ -104,22 +104,26 @@ void Deck::showHand(int player) {
 
 void Deck::initializeHand(int player) {
 	int index = 0;
-	while (index < 5) {
 		for (int i = 0; i < 13; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (deck[j][i] == player) {
 					cards[index].first = i;
 					cards[index].second = j;
 					index++;
-				}
+				
 			}
 		}
 	}
+		if (index < 5) {
+			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
+			exit(-1);
+	}
+		
 }
 
 std::pair <int, int> Deck::checkHand(int player) {
 
-	initializeHand(player);
+  initializeHand(player);
   int cardCount = 0;
   int suitCount = 0;
   //Check for num of cards
