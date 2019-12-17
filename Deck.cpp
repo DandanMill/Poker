@@ -24,6 +24,24 @@ void Deck::printDeck(){
   }
 }
 
+
+void Deck::discardCard(int player,int card){
+    deck[cards[card].second][cards[card].first] = -1;
+}
+
+void Deck::switchCard(int player,int num){
+   int _switch[num] = {0};
+   std::cout << "Which cards would you like to switch? ";
+   for(int i = 0; i < num ; i++){
+     std::cin >> _switch[i];
+   }
+   initializeHand(player);
+   for(int i = 0; i < num; i++){
+     discardCard(player,_switch[i]-1);
+     setRandomCard(player);
+   }
+}
+
 int Deck::setCard(int num,int suit,int player){
     if(deck[suit-1][num-1] == 0){
 		deck[suit-1][num-1] = player;
@@ -33,13 +51,19 @@ int Deck::setCard(int num,int suit,int player){
 		return -1;
 }
 
+void Deck::setRandomCard(int player){
+  bool set = false;
+  while(!set){
+    if(setCard(rand() % 13 + 1, rand() % 4 + 1,player) == 0){
+        set = true;
+    }
+  }
+}
+
 void Deck::dealCards(int player){
   srand(time(NULL));
-  int index = 0;
-  while(index < 5){
-    if(setCard(rand() % 13 + 1, rand() % 4 + 1,player) == 0){
-      index++;
-    }
+  for(int i = 0; i< 5;i++){
+    setRandomCard(player);
   }
 }
 
@@ -124,11 +148,11 @@ void Deck::showHand(int player) {
 
 void Deck::initializeHand(int player) {
 	int index = 0;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 13; j++) {
-				if (deck[i][j] == player) {
-					cards[index].first = j;
-					cards[index].second = i;
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (deck[j][i] == player) {
+					cards[index].first = i;
+					cards[index].second = j;
 					index++;
 
 			}

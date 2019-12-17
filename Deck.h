@@ -10,7 +10,10 @@ class Deck{
 	void shuffleDeck();
 	void printDeck();
 	int setCard(int num,int suit,int player);
+	void switchCard(int player,int num);
+	void setRandomCard(int player);
 	void dealCards(int player);
+	void discardCard(int player,int card);
 	std::string returnSuit(int suit);
 	std::string returnCard(int num);
 	void showHand(int player);

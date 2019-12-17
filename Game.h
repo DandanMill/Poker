@@ -11,7 +11,7 @@ class Game{
 		Game();
 		void Round();
 		void Playing();
-		void switchCards();
+		void switchCards(int player);
 		bool isPlayersCalled();
 	private:
 		Deck d;

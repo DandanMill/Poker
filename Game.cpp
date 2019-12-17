@@ -8,9 +8,14 @@ Game::Game(){
   std::cin >> numOfPlayers;
   for(int i = 0; i < numOfPlayers;i++){
     players.push_back(Player(i+1));
-    d.dealCards(i+1);
+      d.dealCards(i+1);
+      d.printDeck();
+      d.showHand(i+1);
+      switchCards(i+1);
+      d.printDeck();
+      d.showHand(i+1);
   }
-  Playing();
+//  Playing();
 }
 
 void Game::Playing(){
@@ -19,14 +24,13 @@ void Game::Playing(){
     d.showHand(players[i].getId());
   }
   d.printDeck();
-  }/*
-  Round();
-  switchCards();
-  Round();
-  switchCards();
-  Round();*/
+}
 
-void Game::switchCards(){
+void Game::switchCards(int player){
+    int numSwitch = 0;
+    std::cout << "How many cards do you want to switch?";
+    std::cin >> numSwitch;
+    d.switchCard(player,numSwitch);
 
 }
 
