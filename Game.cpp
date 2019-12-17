@@ -8,21 +8,10 @@ Game::Game(){
   std::cin >> numOfPlayers;
   for(int i = 0; i < numOfPlayers;i++){
     players.push_back(Player(i+1));
-      d.dealCards(i+1);
-      d.printDeck();
-      d.showHand(i+1);
-      switchCards(i+1);
-      d.printDeck();
-      d.showHand(i+1);
   }
-//  Playing();
 }
 
 void Game::Playing(){
-  for(int i = 0; i < players.size();i++){
-    std::cout << "Player number " << players[i].getId() << "'s Cards\n";
-    d.showHand(players[i].getId());
-  }
   d.printDeck();
 }
 
