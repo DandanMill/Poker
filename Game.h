@@ -12,7 +12,8 @@ class Game{
 		void Round();
 		void Playing();
 		void switchCards(int player);
-		bool isPlayersCalled();
+		void checkWinning();
+		int isPCOF(int i);
 	private:
 		Deck d;
 		std::vector<Player> players;

@@ -9,6 +9,7 @@ public:
   bool getCalled();
   void setCalled(bool b);
   int getId();
+  bool getFolded();
   void resetCF();
   int Play(int maxBet);
 private:
