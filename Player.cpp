@@ -9,6 +9,14 @@ Player::Player(int _id){
 
 }
 
+Player::Player(int _id,bool _called){
+  money = 1000;
+  called = _called;
+  folded = false;
+  id = _id;
+  
+}
+
 int Player::getId(){
   return id;
 }

@@ -12,7 +12,7 @@ class Game{
 		void Round();
 		void Playing();
 		void switchCards(int player);
-		void checkWinning();
+		void checkWon();
 		int isPCOF(int i);
 	private:
 		Deck d;

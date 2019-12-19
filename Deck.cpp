@@ -30,16 +30,18 @@ void Deck::discardCard(int player,int card){
 }
 
 void Deck::switchCard(int player,int num){
-   int _switch[num] = { 0 };
+   if(num > 0){
+   int switchNum[num] = { 0 };
    std::cout << "Which cards would you like to switch? ";
    for(int i = 0; i < num ; i++){
-     std::cin >> _switch[i];
+     std::cin >> switchNum[i];
    }
    initializeHand(player);
    for(int i = 0; i < num; i++){
-     discardCard(player,_switch[i]-1);
+     discardCard(player,switchNum[i]-1);
      setRandomCard(player);
    }
+  }
 }
 
 int Deck::setCard(int num,int suit,int player){
@@ -214,7 +216,11 @@ int Deck::checkHand(int player) {
   for(int i = 0; i < 4;i++){
     if(numOfSuits[i] > 0)
       numOfSuits[i]++;
-    suitCount += numOfSuits[i];
+      if(numOfSuits[i] == 5){
+        suitCount = 5;
+      }else{
+        suitCount = 0;
+      }
     }
 
   //checks for full house
@@ -230,6 +236,7 @@ int Deck::checkHand(int player) {
       }
       else{
         cardCount = 0;
+        break;
       }
     }
   }

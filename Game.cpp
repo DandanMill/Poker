@@ -7,8 +7,10 @@ Game::Game(){
   std::cout << "Enter num of players: ";
   std::cin >> numOfPlayers;
   for(int i = 0; i < numOfPlayers;i++){
-    players.push_back(Player(i+1));
+    players.push_back(Player(i+1,true));
+    d.dealCards(players[i].getId());
   }
+  checkWon();
 }
 
 void Game::Playing(){
@@ -23,7 +25,7 @@ void Game::switchCards(int player){
 
 }
 
-void Game::checkWinning(){
+void Game::checkWon(){
    /* 2 for pair
       3 for three of a kind
       4 for two pair
@@ -31,14 +33,17 @@ void Game::checkWinning(){
       7 for full house
       8 for four of a kind
    */
-   int x = 0, y = 0;
+   int cardCount = 0;
    int winning = 0;
    for(int i = 0;i< players.size();i++){
-     if(isPCOF(i) == 1){
-       
-        winning = i;
+     if(players[i].getCalled() && !players[i].getFolded()){
+        if(cardCount < d.checkHand(players[i].getId())){
+          winning = players[i].getId();
+          cardCount = d.checkHand(players[i].getId());
         }
-       }
+      }
+    }
+     std::cout << "Player " << winning << " Won" << std::endl;
    }
   
 
