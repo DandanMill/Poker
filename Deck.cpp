@@ -30,7 +30,7 @@ void Deck::discardCard(int player,int card){
 }
 
 void Deck::switchCard(int player,int num){
-   int _switch[num] = {0};
+   int _switch[num] = { 0 };
    std::cout << "Which cards would you like to switch? ";
    for(int i = 0; i < num ; i++){
      std::cin >> _switch[i];
@@ -165,7 +165,7 @@ void Deck::initializeHand(int player) {
 
 }
 
-std::pair <int, int> Deck::checkHand(int player) {
+int Deck::checkHand(int player) {
 
   initializeHand(player);
   int cardCount = 0;
@@ -216,6 +216,7 @@ std::pair <int, int> Deck::checkHand(int player) {
       numOfSuits[i]++;
     suitCount += numOfSuits[i];
     }
+
   //checks for full house
   if(cardCount == 5){
     cardCount = 7;
@@ -232,12 +233,17 @@ std::pair <int, int> Deck::checkHand(int player) {
       }
     }
   }
+  if(suitCount == 5 && cardCount == 5){
+    cardCount = 10;
+  }
+  else if(suitCount == 5 && cardCount > 5){
+
+  }
+  else if(suitCount == 5 && cardCount <= 5){
+    cardCount = 6;
+  }
 
 
 
-
-  std::pair <int, int> ret;
-  ret.first = cardCount;
-  ret.second = suitCount;
-  return ret;
+    return cardCount;
 }

@@ -35,16 +35,13 @@ void Game::checkWinning(){
    int winning = 0;
    for(int i = 0;i< players.size();i++){
      if(isPCOF(i) == 1){
-       if(d.checkHand(players[i].getId()).first > x){
-        if(x == 3 && d.checkHand(players[i].getId()).first == 4){}
-        else{
-        x = d.checkHand(players[i].getId()).first;
+       
         winning = i;
         }
        }
    }
-  }
-}
+  
+
 
 
 void Game::Round(){
@@ -64,7 +61,7 @@ void Game::Round(){
   }
 }
 int Game::isPCOF(int i){
-    if(players[i].getFolded){
+    if(players[i].getFolded()){
         return -1;
     }
   
