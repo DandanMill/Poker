@@ -7,31 +7,35 @@ Game::Game(){
   int numOfPlayers = 0;
   std::cout << "Enter num of players(Max 5): ";
   std::cin >> numOfPlayers;
+  if(numOfPlayers < 2){
+    return;
+  }
   for(int i = 0; i < numOfPlayers;i++){
     players.push_back(Player(i+1));
-    d.dealCards(players[i].getId());
-    std::cout << players[i].getId() << "'s cards" << std::endl;
-    d.showHand(players[i].getId());
   }
-  Round();
+  Playing();
   
 }
 
 void Game::Playing(){
+  d.shuffleDeck();
   for(int i = 0; i <  players.size();i++){
     d.dealCards(players[i].getId());
     d.showHand(players[i].getId());
   }
-  //Round of betting
+  Round();
   for(int i = 0;i<players.size();i++){
     if(players[i].getFolded() == false){
       switchCards(players[i].getId());
       d.showHand(players[i].getId());
     }
   }
-  //Round of betting
-  
-  checkWon();
+  Round();
+  int win = checkWon();
+  players[win-1].setMoney(players[win-1].getMoney() + pot);
+  for(int i = 0; i < players.size();i++){
+    std::cout << "Player " << players[i].getId() << "'s Money" << players[i].getMoney() << std::endl;
+  }
 
 
 }
@@ -62,10 +66,6 @@ void Game::Round(){
     players[i].setMoney(players[i].getMoney() - players[i].getBet()); 
   }
   pot += getAllBets();
-  players[0].setMoney(players[0].getMoney() + pot);
-  for(int i = 0; i < players.size();i++){
-    std::cout << "Player " << players[i].getId() << "'s Money " << players[i].getMoney() << std::endl;
-  }
 }
 
 
@@ -78,7 +78,7 @@ void Game::switchCards(int player){
 
 }
 
-void Game::checkWon(){
+int Game::checkWon(){
    /* 2 for pair
       3 for three of a kind
       4 for two pair
@@ -96,8 +96,9 @@ void Game::checkWon(){
         }
       }
     }
-     std::cout << "Player " << winning << " Won" << std::endl;
-   }
+  std::cout << "Player " << winning << " Won" << std::endl;
+  return winning;
+}
   
 bool Game::isCalled(){
   for(int i = 0; i< players.size();i++){

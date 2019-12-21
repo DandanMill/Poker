@@ -62,6 +62,7 @@ int Player::Play(int maxBet){
    char option = ' ';
    int raise = 0;
    while(called == false && folded == false){
+   std::cout << "Current bet: " << maxBet << std::endl;
    std::cout << "Player number " << id << " 's Turn" << "(C/R/F)\n";
    std::cin >> option;
    switch(option){

@@ -12,7 +12,7 @@ class Game{
 		void Round();
 		void Playing();
 		void switchCards(int player);
-		void checkWon();
+		int checkWon();
 		void isPCalled(int maxBet);
 		bool isCalled();
 		int getAllBets();
