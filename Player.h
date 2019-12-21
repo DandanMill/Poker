@@ -12,11 +12,14 @@ public:
   int getId();
   bool getFolded();
   void resetCF();
+  void checkBet(int maxBet);
+  int getBet();
   int Play(int maxBet);
 private:
   int id;
   int money;
   bool called;
+  int bet;
   bool folded;
 };
 

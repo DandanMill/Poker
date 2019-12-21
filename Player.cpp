@@ -6,6 +6,7 @@ Player::Player(int _id){
   called = false;
   folded = false;
   id = _id;
+  bet = 0;
 
 }
 
@@ -14,6 +15,7 @@ Player::Player(int _id,bool _called){
   called = _called;
   folded = false;
   id = _id;
+  bet = 0;
   
 }
 
@@ -41,22 +43,33 @@ bool Player::getFolded(){
 int Player::getMoney(){
   return money;
 }
+int Player::getBet(){
+  return bet;
+}
 void Player::setMoney(int _money){
   money = _money;
+}
+
+void Player::checkBet(int maxBet){
+  if(folded == false){
+  if(maxBet > bet){
+    called = false;
+  }
+  }
 }
 
 int Player::Play(int maxBet){
    char option = ' ';
    int raise = 0;
+   while(called == false && folded == false){
    std::cout << "(C/R/F)\n";
    std::cin >> option;
-   while(called == false && folded == false){
    switch(option){
      case 'c':
      case 'C':
           called = true;
           money -= maxBet;
-
+          bet = maxBet;
           return maxBet;
      case 'r':
      case 'R':
@@ -64,13 +77,16 @@ int Player::Play(int maxBet){
           std::cin >> raise;
           money -= maxBet + raise;
           called = true;
+          bet = maxBet + raise;
           return maxBet+raise;
      case 'f':
      case 'F':
         folded = true;
+        called = true;
         return maxBet;
 
 
    }
  }
+ return maxBet;
 }

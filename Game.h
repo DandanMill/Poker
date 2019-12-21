@@ -13,10 +13,13 @@ class Game{
 		void Playing();
 		void switchCards(int player);
 		void checkWon();
-		int isPCOF(int i);
+		void isPCalled(int maxBet);
+		bool isCalled();
+		int getAllBets();
 	private:
 		Deck d;
 		std::vector<Player> players;
+		int pot = 0;
 };
 
 #endif

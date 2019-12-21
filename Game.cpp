@@ -14,8 +14,14 @@ Game::Game(){
   std::cin >> numOfPlayers;
   for(int i = 0; i < numOfPlayers;i++){
     players.push_back(Player(i+1));
+    d.dealCards(players[i].getId());
+    std::cout << players[i].getId() << "'s cards" << std::endl;
+    d.showHand(players[i].getId());
   }
-  Playing();
+  Round();
+
+  std::cout << "Pot: " << pot << std::endl;
+  
 }
 
 void Game::Playing(){
@@ -23,17 +29,46 @@ void Game::Playing(){
     d.dealCards(players[i].getId());
     d.showHand(players[i].getId());
   }
+  //Round of betting
   for(int i = 0;i<players.size();i++){
     if(players[i].getFolded() == false){
       switchCards(players[i].getId());
       d.showHand(players[i].getId());
     }
   }
+  //Round of betting
   
   checkWon();
 
 
 }
+
+int Game::getAllBets(){
+  int ret = 0;
+  for(int i = 0; i < players.size();i++){
+    ret += players[i].getBet();
+  }
+  return ret;
+}
+
+void Game::Round(){
+  int maxBet = 0;
+  int index = 0;
+  for(int i = 0;i < players.size();i++){
+    players[i].resetCF();
+  }
+  while(isCalled() == false){
+    maxBet = players[index].Play(maxBet);
+    isPCalled(maxBet);
+    index++;
+    if(index >= players.size()){
+      index = 0;
+    }
+  }
+  pot += getAllBets();
+}
+
+
 
 void Game::switchCards(int player){
     int numSwitch = 0;
@@ -66,14 +101,19 @@ void Game::checkWon(){
   
 //TODO make round function that works
 
-
-int Game::isPCOF(int i){
-    if(players[i].getFolded()){
-        return -1;
-    }
-  
-  else if(!players[i].getCalled()){
-    return 0;
+bool Game::isCalled(){
+  for(int i = 0; i< players.size();i++){
+      if(players[i].getCalled() == false){
+        return false;
+      }
   }
-  return 1;
+  return true;
 }
+
+
+void Game::isPCalled(int maxBet){
+    for(int i = 0; i < players.size();i++){
+      players[i].checkBet(maxBet);
+    }
+}
+
