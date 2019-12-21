@@ -62,20 +62,18 @@ int Player::Play(int maxBet){
    char option = ' ';
    int raise = 0;
    while(called == false && folded == false){
-   std::cout << "(C/R/F)\n";
+   std::cout << "Player number " << id << " 's Turn" << "(C/R/F)\n";
    std::cin >> option;
    switch(option){
      case 'c':
      case 'C':
           called = true;
-          money -= maxBet;
           bet = maxBet;
           return maxBet;
      case 'r':
      case 'R':
           std::cout << "How much you would you like to raise by: ";
           std::cin >> raise;
-          money -= maxBet + raise;
           called = true;
           bet = maxBet + raise;
           return maxBet+raise;

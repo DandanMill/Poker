@@ -2,15 +2,10 @@
 #include <utility>
 #include <iostream>
 
-//ToDo make Round function that works
-//ToDo make Round function that works
-//ToDo make Round function that works
-//ToDo make Round function that works
-//ToDo make Round function that works
 
 Game::Game(){
   int numOfPlayers = 0;
-  std::cout << "Enter num of players: ";
+  std::cout << "Enter num of players(Max 5): ";
   std::cin >> numOfPlayers;
   for(int i = 0; i < numOfPlayers;i++){
     players.push_back(Player(i+1));
@@ -19,8 +14,6 @@ Game::Game(){
     d.showHand(players[i].getId());
   }
   Round();
-
-  std::cout << "Pot: " << pot << std::endl;
   
 }
 
@@ -65,7 +58,14 @@ void Game::Round(){
       index = 0;
     }
   }
+  for(int i = 0; i < players.size(); i++){
+    players[i].setMoney(players[i].getMoney() - players[i].getBet()); 
+  }
   pot += getAllBets();
+  players[0].setMoney(players[0].getMoney() + pot);
+  for(int i = 0; i < players.size();i++){
+    std::cout << "Player " << players[i].getId() << "'s Money " << players[i].getMoney() << std::endl;
+  }
 }
 
 
@@ -99,8 +99,6 @@ void Game::checkWon(){
      std::cout << "Player " << winning << " Won" << std::endl;
    }
   
-//TODO make round function that works
-
 bool Game::isCalled(){
   for(int i = 0; i< players.size();i++){
       if(players[i].getCalled() == false){
