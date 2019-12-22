@@ -14,6 +14,7 @@ public:
   void resetCF();
   void checkBet(int maxBet);
   int getBet();
+  void setBet(int _bet);
   int Play(int maxBet);
 private:
   int id;

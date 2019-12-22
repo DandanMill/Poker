@@ -58,6 +58,10 @@ void Player::checkBet(int maxBet){
   }
 }
 
+void Player::setBet(int _bet){
+  bet = _bet;
+}
+
 int Player::Play(int maxBet){
    char option = ' ';
    int raise = 0;
