@@ -1,5 +1,5 @@
 #include "../socketlib/common.h"
-
+#include <string>
 class PokerClient{
     
     public:
@@ -9,10 +9,7 @@ class PokerClient{
     private:
     int sock;
     sockaddr_in server;
-    struct Packet{
-    char cards[5][1024] = {{0}};
-    int money;
-    }msg;
+    char cards[5][1024] = {{' '}};
     
     
 

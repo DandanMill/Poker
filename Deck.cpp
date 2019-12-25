@@ -141,11 +141,9 @@ std::string Deck::returnCard(int num) {
 	}
 }
 
-void Deck::showHand(int player) {
+void Deck::showHand(int player,std::string &s,int num) {
 	initializeHand(player);
-	for (int i = 0; i < 5; i++) {
-		std::cout << returnCard(cards[i].first) << " Of " << returnSuit(cards[i].second) << std::endl;
-	}
+  s = returnCard(cards[num].first) + " Of " + returnSuit(cards[num].second);
 }
 
 void Deck::initializeHand(int player) {

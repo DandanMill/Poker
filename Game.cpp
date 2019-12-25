@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "socketlib/common.h"
 #include <utility>
 #include <iostream>
 
@@ -6,7 +7,7 @@
 //Constructor
 Game::Game(){
   //Inputs number of players in game
-  int numOfPlayers = 0;
+  /*int numOfPlayers = 0;
   std::cout << "Enter num of players(Max 5): ";
   std::cin >> numOfPlayers;
   //if There is not at least player theres no point to the game
@@ -18,7 +19,7 @@ Game::Game(){
   players.reserve(numOfPlayers);
   for(int i = 0; i < numOfPlayers;i++){
     players.emplace_back(Player(i+1));
-  }
+  }*/
   //Runs playing loop
   //While(Game is running){Playing();}
   Playing();
@@ -27,6 +28,25 @@ Game::Game(){
 }
 //Playing loop
 void Game::Playing(){
+  std::string s[5] = { " " };
+  d.shuffleDeck();
+  d.dealCards(1);
+  for(int i = 0; i < sizeof(s) / sizeof(s[0]); i++){
+    d.showHand(1,s[i],i);
+    std::cout << s[i] << std::endl;  
+  }
+  int sock;
+  struct sockaddr_in server;
+  init(sock,server,"0.0.0.0");
+  bind(sock,(sockaddr *)&server,sizeof(server));
+  listen(sock,3);
+
+  int conn = accept(sock,nullptr,nullptr);
+
+  send(conn,s,sizeof(s),0);
+  close(sock);
+  
+  /*
   //Shuffles deck
   d.shuffleDeck();
   //Resets called and folded booleans
@@ -57,7 +77,7 @@ void Game::Playing(){
   players[win-1].setMoney(players[win-1].getMoney() + pot);
   for(int i = 0; i < players.size();i++){
     std::cout << "Player " << players[i].getId() << "'s Money" << players[i].getMoney() << std::endl;
-  }
+  }*/
 }
 
 //Gets all players bets
