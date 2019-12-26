@@ -9,7 +9,7 @@ class PokerClient{
     private:
     int sock;
     sockaddr_in server;
-    char cards[5][1024] = {{' '}};
+    char cards[100] = {' '};
     
     
 

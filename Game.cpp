@@ -42,8 +42,11 @@ void Game::Playing(){
   listen(sock,3);
 
   int conn = accept(sock,nullptr,nullptr);
-
-  send(conn,s,sizeof(s),0);
+  for(int i = 0; i < 5;i++){
+  s[i] = s[i] + '\n';
+  send(conn,s[i].c_str(),s[i].size(),0);
+  }
+  
   close(sock);
   
   /*
