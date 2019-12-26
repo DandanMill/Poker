@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../headers/Player.h"
 #include <iostream>
 
 Player::Player(int _id){

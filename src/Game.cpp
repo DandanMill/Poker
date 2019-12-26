@@ -1,5 +1,5 @@
-#include "Game.h"
-#include "socketlib/common.h"
+#include "../headers/Game.h"
+#include "../socketlib/common.h"
 #include <utility>
 #include <iostream>
 

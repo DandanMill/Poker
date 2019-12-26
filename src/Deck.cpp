@@ -1,4 +1,4 @@
-#include "Deck.h"
+#include "../headers/Deck.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
