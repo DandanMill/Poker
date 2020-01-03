@@ -1,5 +1,5 @@
-#include "../headers/Game.h"
-#include "../socketlib/common.h"
+#include "Game.h"
+#include "common.h"
 #include <utility>
 #include <iostream>
 
@@ -31,10 +31,7 @@ void Game::Playing(){
   std::string s[5] = { " " };
   d.shuffleDeck();
   d.dealCards(1);
-  for(int i = 0; i < sizeof(s) / sizeof(s[0]); i++){
-    d.showHand(1,s[i],i);
-    std::cout << s[i] << std::endl;  
-  }
+  d.showHand(1,s);
   int sock;
   struct sockaddr_in server;
   init(sock,server,"0.0.0.0");
@@ -43,7 +40,6 @@ void Game::Playing(){
 
   int conn = accept(sock,nullptr,nullptr);
   for(int i = 0; i < 5;i++){
-  s[i] = s[i] + '\n';
   send(conn,s[i].c_str(),s[i].size(),0);
   }
   

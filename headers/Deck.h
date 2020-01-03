@@ -16,7 +16,7 @@ class Deck{
 	void discardCard(int player,int card);
 	std::string returnSuit(int suit);
 	std::string returnCard(int num);
-	void showHand(int player,std::string &s,int num);
+	void showHand(int player,std::string s[5]);
 	void initializeHand(int player);
 	int checkHand(int player);
 	private:

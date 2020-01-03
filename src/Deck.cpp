@@ -1,4 +1,4 @@
-#include "../headers/Deck.h"
+#include "Deck.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -141,9 +141,10 @@ std::string Deck::returnCard(int num) {
 	}
 }
 
-void Deck::showHand(int player,std::string &s,int num) {
+void Deck::showHand(int player,std::string s[5]) {
 	initializeHand(player);
-  s = returnCard(cards[num].first) + " Of " + returnSuit(cards[num].second);
+  for(int i = 0; i < 5;i++)
+   s[i] = returnCard(cards[i].first) + " Of " + returnSuit(cards[i].second);
 }
 
 void Deck::initializeHand(int player) {
