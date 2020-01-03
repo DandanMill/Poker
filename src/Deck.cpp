@@ -72,7 +72,7 @@ void Deck::dealCards(int player){
 
 
 
-std::string Deck::returnSuit(int suit) {
+const char* Deck::returnSuit(int suit) {
 
 	switch (suit) {
 	case 0:
@@ -93,7 +93,7 @@ std::string Deck::returnSuit(int suit) {
 	}
 }
 
-std::string Deck::returnCard(int num) {
+const char* Deck::returnCard(int num) {
 
 	switch (num) {
 	case 0:
@@ -141,7 +141,7 @@ std::string Deck::returnCard(int num) {
 	}
 }
 
-void Deck::showHand(int player,std::string s[5]) {
+void Deck::showHand(int player,char *s[5]) {
 	initializeHand(player);
   for(int i = 0; i < 5;i++)
    s[i] = returnCard(cards[i].first) + " Of " + returnSuit(cards[i].second);

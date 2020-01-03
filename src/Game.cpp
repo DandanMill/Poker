@@ -26,9 +26,10 @@ Game::Game(){
 
   
 }
+
 //Playing loop
 void Game::Playing(){
-  std::string s[5] = { " " };
+  char *s[5];
   d.shuffleDeck();
   d.dealCards(1);
   d.showHand(1,s);

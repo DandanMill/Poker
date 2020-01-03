@@ -14,9 +14,9 @@ class Deck{
 	void setRandomCard(int player);
 	void dealCards(int player);
 	void discardCard(int player,int card);
-	std::string returnSuit(int suit);
-	std::string returnCard(int num);
-	void showHand(int player,std::string s[5]);
+	const char* returnSuit(int suit);
+	const char* returnCard(int num);
+	void showHand(int player,char *s[5]);
 	void initializeHand(int player);
 	int checkHand(int player);
 	private:
