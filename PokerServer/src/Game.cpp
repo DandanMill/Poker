@@ -1,11 +1,19 @@
 #include "Game.h"
-#include "Network.h"
 #include <utility>
 #include <iostream>
 
 
 //Constructor
 Game::Game(){
+
+  Network::init(sock,server,"0.0.0.0");
+  d.shuffleDeck();
+  d.dealCards(1);
+  d.getState(1,p);
+  d.printDeck();
+  int conn = Network::initServer(sock,server);
+  Network::sendPokerPacket(conn,p);
+
   //Inputs number of players in game
   /*int numOfPlayers = 0;
   std::cout << "Enter num of players(Max 5): ";
@@ -22,15 +30,14 @@ Game::Game(){
   }*/
   //Runs playing loop
   //While(Game is running){Playing();}
-  Playing();
+  //Playing();
 
   
 }
 
 //Playing loop
 void Game::Playing(){
-  
-  /*
+ /*
   //Shuffles deck
   d.shuffleDeck();
   //Resets called and folded booleans

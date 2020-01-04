@@ -5,7 +5,7 @@ workspace "Poker"
 project "NetworkFunctionality"
     kind "StaticLib"
     language "C++"
-    targetdir "./libs/"
+    targetdir "./libs"
     includedirs {"./Network-Functionality/", "./includes"}
     libdirs "./libs"
     files {"./Network-Functionality/**.h", "./Network-Functionality/**.cpp"}
@@ -22,10 +22,10 @@ project "PokerClient"
    kind "ConsoleApp"
    language "C++"
    targetdir "PokerClient/bin/%{cfg.buildcfg}"
-   includedirs {"./**", "./includes"}
+   includedirs {"./PokerClient/headers", "./includes"}
    libdirs {"./libs"}
    links {"NetworkFunctionality"}
-   files { "./PokerClient/**.h", "./PokerClient/**.cpp" }
+   files { "./PokerClient/headers/**.h", "./PokerClient/src/**.cpp"}
 
    filter "configurations:Debug"
       defines { "DEBUG" }

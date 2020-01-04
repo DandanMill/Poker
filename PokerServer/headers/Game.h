@@ -20,6 +20,10 @@ class Game{
 		Deck d;
 		std::vector<Player> players;
 		int pot = 0;
+		int sock;
+		struct sockaddr_in server;
+		Network::PokerPacket p;
+
 };
 
 #endif
