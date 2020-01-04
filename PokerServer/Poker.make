@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/Poker
   OBJDIR = obj/Debug
   DEFINES += -DDEBUG
-  INCLUDES += -Iheaders -Isocketlib
+  INCLUDES += -Iheaders -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -24,7 +24,7 @@ ifeq ($(config),debug)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldandansocket
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -Lsocketlib
+  ALL_LDFLAGS += $(LDFLAGS) -L../libs
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/Poker
   OBJDIR = obj/Release
   DEFINES += -DNDEBUG
-  INCLUDES += -Iheaders -Isocketlib
+  INCLUDES += -Iheaders -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -51,7 +51,7 @@ ifeq ($(config),release)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldandansocket
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -Lsocketlib -s
+  ALL_LDFLAGS += $(LDFLAGS) -L../libs -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef

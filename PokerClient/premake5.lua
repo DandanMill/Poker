@@ -1,14 +1,13 @@
-workspace "Poker"
-   configurations { "Debug", "Release" }
-
-project "Poker"
+workspace "PokerClient"
+    configurations { "Debug", "Release"}
+project "PokerClient"
    kind "ConsoleApp"
    language "C++"
    targetdir "bin/%{cfg.buildcfg}"
-   includedirs {"./headers/", "./socketlib/"}
-   libdirs {"./socketlib"}
+   includedirs {"./**", "../includes"}
+   libdirs {"../libs"}
    links {"dandansocket"}
-   files { "./headers/**.h", "./src/**.cpp" }
+   files { "**.h", "**.cpp" }
 
    filter "configurations:Debug"
       defines { "DEBUG" }
