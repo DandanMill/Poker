@@ -1,7 +1,6 @@
 #include "common.h"
 #include <utility>
 
-
 class PokerClient{
     
     public:
@@ -17,4 +16,3 @@ class PokerClient{
 
 
 };
-
