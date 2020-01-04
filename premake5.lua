@@ -7,7 +7,7 @@ project "PokerClient"
    targetdir "PokerClient/bin/%{cfg.buildcfg}"
    includedirs {"./**", "./includes"}
    libdirs {"./libs"}
-   links {"dandansocket"}
+   links {"NetworkFunctionality"}
    files { "./PokerClient/**.h", "./PokerClient/**.cpp" }
 
    filter "configurations:Debug"
@@ -25,7 +25,7 @@ project "PokerServer"
     targetdir "./PokerServer/bin/%{cfg.buildcfg}"
     includedirs {"./PokerServer/headers/", "./includes"}
     libdirs {"./libs"}
-    links {"dandansocket"}
+    links {"NetworkFunctionality"}
     files { "./PokerServer/headers/**.h", "./PokerServer/src/**.cpp" }
     filter "configurations:Debug"
         defines { "DEBUG" }
@@ -37,14 +37,13 @@ project "PokerServer"
     project "NetworkFunctionality"
     kind "StaticLib"
     language "C++"
-    targetdir "./Network-Functionality/bin/"
+    targetdir "./libs/"
     includedirs {"./Network-Functionality/", "./includes"}
     libdirs "./libs"
-    links {"dandansocket"}
     files {"./Network-Functionality/**.h", "./Network-Functionality/**.cpp"}
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"
     filter "configurations:Release"
         defines { "NDEBUG" }
-    optimize "On"
+        optimize "On"

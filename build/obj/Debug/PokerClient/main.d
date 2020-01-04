@@ -1,6 +1,6 @@
 obj/Debug/PokerClient/main.o: ../PokerClient/main.cpp \
- ../PokerClient/PokerClient.h ../libs/common.h
+ ../PokerClient/PokerClient.h ../includes/common.h
 
 ../PokerClient/PokerClient.h:
 
-../libs/common.h:
+../includes/common.h:

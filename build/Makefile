@@ -25,13 +25,13 @@ PROJECTS := PokerClient PokerServer NetworkFunctionality
 
 all: $(PROJECTS)
 
-PokerClient:
+PokerClient: NetworkFunctionality
 ifneq (,$(PokerClient_config))
 	@echo "==== Building PokerClient ($(PokerClient_config)) ===="
 	@${MAKE} --no-print-directory -C . -f PokerClient.make config=$(PokerClient_config)
 endif
 
-PokerServer:
+PokerServer: NetworkFunctionality
 ifneq (,$(PokerServer_config))
 	@echo "==== Building PokerServer ($(PokerServer_config)) ===="
 	@${MAKE} --no-print-directory -C . -f PokerServer.make config=$(PokerServer_config)

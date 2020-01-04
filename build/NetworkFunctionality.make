@@ -12,7 +12,7 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../Network-Functionality/bin
+  TARGETDIR = ../libs
   TARGET = $(TARGETDIR)/libNetworkFunctionality.a
   OBJDIR = obj/Debug/NetworkFunctionality
   DEFINES += -DDEBUG
@@ -22,7 +22,7 @@ ifeq ($(config),debug)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldandansocket
+  LIBS +=
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../libs
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
@@ -39,7 +39,7 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../Network-Functionality/bin
+  TARGETDIR = ../libs
   TARGET = $(TARGETDIR)/libNetworkFunctionality.a
   OBJDIR = obj/Release/NetworkFunctionality
   DEFINES += -DNDEBUG
@@ -49,7 +49,7 @@ ifeq ($(config),release)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldandansocket
+  LIBS +=
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../libs -s
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
