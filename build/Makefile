@@ -9,21 +9,27 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
+  NetworkFunctionality_config = debug
   PokerClient_config = debug
   PokerServer_config = debug
-  NetworkFunctionality_config = debug
 endif
 ifeq ($(config),release)
+  NetworkFunctionality_config = release
   PokerClient_config = release
   PokerServer_config = release
-  NetworkFunctionality_config = release
 endif
 
-PROJECTS := PokerClient PokerServer NetworkFunctionality
+PROJECTS := NetworkFunctionality PokerClient PokerServer
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
+
+NetworkFunctionality:
+ifneq (,$(NetworkFunctionality_config))
+	@echo "==== Building NetworkFunctionality ($(NetworkFunctionality_config)) ===="
+	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make config=$(NetworkFunctionality_config)
+endif
 
 PokerClient: NetworkFunctionality
 ifneq (,$(PokerClient_config))
@@ -37,16 +43,10 @@ ifneq (,$(PokerServer_config))
 	@${MAKE} --no-print-directory -C . -f PokerServer.make config=$(PokerServer_config)
 endif
 
-NetworkFunctionality:
-ifneq (,$(NetworkFunctionality_config))
-	@echo "==== Building NetworkFunctionality ($(NetworkFunctionality_config)) ===="
-	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make config=$(NetworkFunctionality_config)
-endif
-
 clean:
+	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make clean
 	@${MAKE} --no-print-directory -C . -f PokerClient.make clean
 	@${MAKE} --no-print-directory -C . -f PokerServer.make clean
-	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -58,8 +58,8 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
+	@echo "   NetworkFunctionality"
 	@echo "   PokerClient"
 	@echo "   PokerServer"
-	@echo "   NetworkFunctionality"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

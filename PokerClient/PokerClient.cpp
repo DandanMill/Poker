@@ -1,7 +1,7 @@
 #include "PokerClient.h"
 #include <iostream>
 PokerClient::PokerClient(){
-    init(sock,server,"127.0.0.1");
+    Network::init(sock,server,"127.0.0.1");
     connect(sock,(sockaddr *)&server,sizeof(server));
     
     recv(sock,hand,sizeof(int) * 10,0);

@@ -1,6 +1,23 @@
 workspace "Poker"
     configurations { "Debug", "Release"}
     location  "build"
+
+project "NetworkFunctionality"
+    kind "StaticLib"
+    language "C++"
+    targetdir "./libs/"
+    includedirs {"./Network-Functionality/", "./includes"}
+    libdirs "./libs"
+    files {"./Network-Functionality/**.h", "./Network-Functionality/**.cpp"}
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        optimize "On"
+
+
+
 project "PokerClient"
    kind "ConsoleApp"
    language "C++"
@@ -34,16 +51,3 @@ project "PokerServer"
         defines { "NDEBUG" }
     optimize "On"
 
-    project "NetworkFunctionality"
-    kind "StaticLib"
-    language "C++"
-    targetdir "./libs/"
-    includedirs {"./Network-Functionality/", "./includes"}
-    libdirs "./libs"
-    files {"./Network-Functionality/**.h", "./Network-Functionality/**.cpp"}
-    filter "configurations:Debug"
-        defines { "DEBUG" }
-        symbols "On"
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"

@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "common.h"
+#include "Network.h"
 #include <utility>
 #include <iostream>
 
@@ -36,7 +36,7 @@ void Game::Playing(){
   d.getHand(1,buffer);
   int sock;
   struct sockaddr_in server;
-  init(sock,server,"0.0.0.0");
+  Network::init(sock,server,"0.0.0.0");
   bind(sock,(sockaddr *)&server,sizeof(server));
   listen(sock,3);
 
