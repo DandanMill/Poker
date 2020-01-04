@@ -12,11 +12,11 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = bin/Debug
-  TARGET = $(TARGETDIR)/PokerClient
-  OBJDIR = obj/Debug
+  TARGETDIR = ../PokerServer/bin/Debug
+  TARGET = $(TARGETDIR)/PokerServer
+  OBJDIR = obj/Debug/PokerServer
   DEFINES += -DDEBUG
-  INCLUDES += -Ibin -Iobj -Ibin/Debug -Iobj/Debug -I../includes
+  INCLUDES += -I../PokerServer/headers -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -39,11 +39,11 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = bin/Release
-  TARGET = $(TARGETDIR)/PokerClient
-  OBJDIR = obj/Release
+  TARGETDIR = ../PokerServer/bin/Release
+  TARGET = $(TARGETDIR)/PokerServer
+  OBJDIR = obj/Release/PokerServer
   DEFINES += -DNDEBUG
-  INCLUDES += -Ibin -Iobj -Ibin/Debug -Iobj/Debug -I../includes
+  INCLUDES += -I../PokerServer/headers -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -65,7 +65,9 @@ all: prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/PokerClient.o \
+	$(OBJDIR)/Deck.o \
+	$(OBJDIR)/Game.o \
+	$(OBJDIR)/Player.o \
 	$(OBJDIR)/main.o \
 
 RESOURCES := \
@@ -78,7 +80,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking PokerClient
+	@echo Linking PokerServer
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -101,7 +103,7 @@ else
 endif
 
 clean:
-	@echo Cleaning PokerClient
+	@echo Cleaning PokerServer
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -125,10 +127,16 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
-$(OBJDIR)/PokerClient.o: PokerClient.cpp
+$(OBJDIR)/Deck.o: ../PokerServer/src/Deck.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/main.o: main.cpp
+$(OBJDIR)/Game.o: ../PokerServer/src/Game.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Player.o: ../PokerServer/src/Player.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/main.o: ../PokerServer/src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

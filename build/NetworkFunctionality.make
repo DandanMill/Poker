@@ -12,11 +12,11 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = bin/Debug
-  TARGET = $(TARGETDIR)/Poker
-  OBJDIR = obj/Debug
+  TARGETDIR = ../Network-Functionality/bin
+  TARGET = $(TARGETDIR)/libNetworkFunctionality.a
+  OBJDIR = obj/Debug/NetworkFunctionality
   DEFINES += -DDEBUG
-  INCLUDES += -Iheaders -I../includes
+  INCLUDES += -I../Network-Functionality -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -25,7 +25,7 @@ ifeq ($(config),debug)
   LIBS += -ldandansocket
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../libs
-  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -39,11 +39,11 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = bin/Release
-  TARGET = $(TARGETDIR)/Poker
-  OBJDIR = obj/Release
+  TARGETDIR = ../Network-Functionality/bin
+  TARGET = $(TARGETDIR)/libNetworkFunctionality.a
+  OBJDIR = obj/Release/NetworkFunctionality
   DEFINES += -DNDEBUG
-  INCLUDES += -Iheaders -I../includes
+  INCLUDES += -I../Network-Functionality -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -52,7 +52,7 @@ ifeq ($(config),release)
   LIBS += -ldandansocket
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../libs -s
-  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -65,9 +65,6 @@ all: prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/Deck.o \
-	$(OBJDIR)/Game.o \
-	$(OBJDIR)/Player.o \
 	$(OBJDIR)/main.o \
 
 RESOURCES := \
@@ -80,7 +77,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking Poker
+	@echo Linking NetworkFunctionality
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -103,7 +100,7 @@ else
 endif
 
 clean:
-	@echo Cleaning Poker
+	@echo Cleaning NetworkFunctionality
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -127,16 +124,7 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
-$(OBJDIR)/Deck.o: src/Deck.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Game.o: src/Game.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Player.o: src/Player.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/main.o: src/main.cpp
+$(OBJDIR)/main.o: ../Network-Functionality/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
