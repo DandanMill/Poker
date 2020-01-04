@@ -7,12 +7,10 @@ class PokerClient{
     PokerClient();
     const char* returnCard(int num);
     const char* returnSuit(int suit);
-    
+    void printDeck();
     private:
     int sock;
     sockaddr_in server;
-    std::pair <int ,int> hand[5];    
-
-
+    Network::PokerPacket p;
 
 };

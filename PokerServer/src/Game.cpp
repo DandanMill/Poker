@@ -29,21 +29,6 @@ Game::Game(){
 
 //Playing loop
 void Game::Playing(){
-  std::pair <int, int> buffer[5];
-  d.shuffleDeck();
-  d.dealCards(1);
-  d.printDeck();
-  d.getHand(1,buffer);
-  int sock;
-  struct sockaddr_in server;
-  Network::init(sock,server,"0.0.0.0");
-  bind(sock,(sockaddr *)&server,sizeof(server));
-  listen(sock,3);
-
-  int conn = accept(sock,nullptr,nullptr);
-  send(conn,buffer,sizeof(int) * 10,0);
-  
-  close(sock);
   
   /*
   //Shuffles deck

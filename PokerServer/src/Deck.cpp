@@ -1,7 +1,5 @@
 #include "Deck.h"
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
 
 Deck::Deck(){
   shuffleDeck();
@@ -27,6 +25,12 @@ void Deck::printDeck(){
 
 void Deck::discardCard(int player,int card){
     deck[cards[card].second][cards[card].first] = -1;
+}
+
+
+void Deck::getState(int player,Network::PokerPacket &p){
+  initializeHand(player,p.hand,p.deck);
+
 }
 
 void Deck::switchCard(int player,int num){
@@ -69,85 +73,6 @@ void Deck::dealCards(int player){
   }
 }
 
-
-
-void Deck::getHand(int player,std::pair<int ,int> buffer[5]){
-  initializeHand(player);
-  for(int i = 0; i < 5; i++){
-    buffer[i].first = cards[i].first;
-    buffer[i].second = cards[i].second;
-  }
-}
-
-const char* Deck::returnSuit(int suit) {
-
-	switch (suit) {
-	case 0:
-		return "Hearts";
-		break;
-	case 1:
-		return "Clubs";
-		break;
-	case 2:
-		return "Diamonds";
-		break;
-	case 3:
-		return "Spades";
-		break;
-	default:
-		return "No suit";
-		break;
-	}
-}
-
-const char* Deck::returnCard(int num) {
-
-	switch (num) {
-	case 0:
-		return "A";
-		break;
-	case 1:
-		return "2";
-		break;
-	case 2:
-		return "3";
-		break;
-	case 3:
-		return "4";
-		break;
-	case 4:
-		return "5";
-		break;
-	case 5:
-		return "6";
-		break;
-	case 6:
-		return "7";
-		break;
-	case 7:
-		return "8";
-		break;
-	case 8:
-		return "9";
-		break;
-	case 9:
-		return "10";
-		break;
-	case 10:
-		return "Jack";
-		break;
-	case 11:
-		return "Queen";
-		break;
-	case 12:
-		return "King";
-		break;
-	default:
-		return "Not Num Card";
-		break;
-	}
-}
-
 void Deck::showHand(int player,char *s[5]) {
 	initializeHand(player);
 }
@@ -167,6 +92,30 @@ void Deck::initializeHand(int player) {
 			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
 			exit(-1);
 	}
+
+}
+
+void Deck::initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]) {
+	int index = 0;
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (deck[j][i] == player) {
+					hand[index].first = i;
+					hand[index].second = j;
+					index++;
+
+			}
+		}
+	}
+		if (index < 5) {
+			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
+			exit(-1);
+	}
+  for(int i = 0; i < 4;i++){
+    for(int j = 0; j < 13;j++){
+      d[i][j] = deck[i][j];
+    }
+  }
 
 }
 
@@ -257,3 +206,72 @@ int Deck::checkHand(int player) {
 
     return cardCount;
 }
+//const char* Deck::returnSuit(int suit) {
+//
+//	switch (suit) {
+//	case 0:
+//		return "Hearts";
+//		break;
+//	case 1:
+//		return "Clubs";
+//		break;
+//	case 2:
+//		return "Diamonds";
+//		break;
+//	case 3:
+//		return "Spades";
+//		break;
+//	default:
+//		return "No suit";
+//		break;
+//	}
+//}
+//
+//const char* Deck::returnCard(int num) {
+//
+//	switch (num) {
+//	case 0:
+//		return "A";
+//		break;
+//	case 1:
+//		return "2";
+//		break;
+//	case 2:
+//		return "3";
+//		break;
+//	case 3:
+//		return "4";
+//		break;
+//	case 4:
+//		return "5";
+//		break;
+//	case 5:
+//		return "6";
+//		break;
+//	case 6:
+//		return "7";
+//		break;
+//	case 7:
+//		return "8";
+//		break;
+//	case 8:
+//		return "9";
+//		break;
+//	case 9:
+//		return "10";
+//		break;
+//	case 10:
+//		return "Jack";
+//		break;
+//	case 11:
+//		return "Queen";
+//		break;
+//	case 12:
+//		return "King";
+//		break;
+//	default:
+//		return "Not Num Card";
+//		break;
+//	}
+//}
+//

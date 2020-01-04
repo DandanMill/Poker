@@ -3,6 +3,7 @@
 
 #include <string>
 #include <utility>
+#include <Network.h>
 
 class Deck{
 	public:
@@ -14,9 +15,10 @@ class Deck{
 	void setRandomCard(int player);
 	void dealCards(int player);
 	void discardCard(int player,int card);
-	const char* returnSuit(int suit);
-	const char* returnCard(int num);
-	void getHand(int player,std::pair<int ,int> buffer[5]);
+
+
+	void getState(int player,Network::PokerPacket &p);
+	void initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]);
 	void showHand(int player,char *s[5]);
 	void initializeHand(int player);
 	int checkHand(int player);
@@ -27,3 +29,5 @@ class Deck{
 
 
 #endif
+//const char* returnSuit(int suit);
+//const char* returnCard(int num);

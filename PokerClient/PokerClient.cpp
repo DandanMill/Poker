@@ -1,16 +1,33 @@
 #include "PokerClient.h"
 #include <iostream>
+
 PokerClient::PokerClient(){
     Network::init(sock,server,"127.0.0.1");
-    connect(sock,(sockaddr *)&server,sizeof(server));
-    
-    recv(sock,hand,sizeof(int) * 10,0);
+	connect(sock,(sockaddr *)&server,sizeof(server));
+    recv(sock,&p,sizeof(p),0);
 	for(int i = 0; i < 5;i++){
-		std::cout << returnCard(hand[i].first) << " " << returnSuit(hand[i].second) << std::endl;
+		std::cout << returnCard(p.hand[i].first) << " " << returnSuit(p.hand[i].second) << std::endl;
 	}
+	printDeck();
+	recv(sock,&p,sizeof(p),0);
+	for(int i = 0; i < 5;i++){
+		std::cout << returnCard(p.hand[i].first) << " " << returnSuit(p.hand[i].second) << std::endl;
+	}
+	printDeck();
+	
+
     close(sock);
 }
 
+
+void PokerClient::printDeck(){
+	for(int i = 0; i < 4;i++){
+		for(int j = 0; j < 13;j++){
+			std::cout << p.deck[i][j];
+		}
+		std::cout << std::endl;
+	}
+}
 
 const char* PokerClient::returnSuit(int suit) {
 
