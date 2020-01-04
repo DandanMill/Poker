@@ -16,6 +16,7 @@ class Deck{
 	void discardCard(int player,int card);
 	const char* returnSuit(int suit);
 	const char* returnCard(int num);
+	void getHand(int player,std::pair<int ,int> buffer[5]);
 	void showHand(int player,char *s[5]);
 	void initializeHand(int player);
 	int checkHand(int player);

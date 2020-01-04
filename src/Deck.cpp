@@ -71,6 +71,13 @@ void Deck::dealCards(int player){
 
 
 
+void Deck::getHand(int player,std::pair<int ,int> buffer[5]){
+  initializeHand(player);
+  for(int i = 0; i < 5; i++){
+    buffer[i].first = cards[i].first;
+    buffer[i].second = cards[i].second;
+  }
+}
 
 const char* Deck::returnSuit(int suit) {
 
@@ -143,10 +150,7 @@ const char* Deck::returnCard(int num) {
 
 void Deck::showHand(int player,char *s[5]) {
 	initializeHand(player);
-  for(int i = 0; i < 5;i++)
-   s[i] = returnCard(cards[i].first) + " Of " + returnSuit(cards[i].second);
 }
-
 void Deck::initializeHand(int player) {
 	int index = 0;
 		for (int i = 0; i < 13; i++) {
