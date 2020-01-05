@@ -65,9 +65,9 @@ all: prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/Player.o \
 	$(OBJDIR)/PokerClient.o \
 	$(OBJDIR)/main.o \
-	$(OBJDIR)/Player.o \
 
 RESOURCES := \
 
@@ -126,13 +126,13 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
+$(OBJDIR)/Player.o: ../PokerClient/src/Player.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/PokerClient.o: ../PokerClient/src/PokerClient.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: ../PokerClient/src/main.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Player.o: ../PokerServer/src/Player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

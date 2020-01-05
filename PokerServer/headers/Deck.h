@@ -20,7 +20,7 @@ class Deck{
 	void getState(int player,Network::PokerPacket &p);
 	void initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]);
 	void showHand(int player,char *s[5]);
-	void initializeHand(int player);
+//	void initializeHand(int player);
 	int checkHand(int player);
 	private:
 	int deck[4][13];

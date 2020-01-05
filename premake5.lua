@@ -25,7 +25,7 @@ project "PokerClient"
    includedirs {"./PokerClient/headers", "./includes"}
    libdirs {"./libs"}
    links {"NetworkFunctionality"}
-   files { "./PokerClient/headers/**.h", "./PokerClient/src/**.cpp", "./PokerServer/src/Player.cpp"}
+   files { "./PokerClient/headers/**.h", "./PokerClient/src/**.cpp"}
 
    filter "configurations:Debug"
       defines { "DEBUG" }

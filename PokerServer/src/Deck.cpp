@@ -24,12 +24,14 @@ void Deck::printDeck(){
 
 
 void Deck::discardCard(int player,int card){
-    deck[cards[card].second][cards[card].first] = -1;
+//    deck[cards[card].second][cards[card].first] = -1;
 }
 
 
 void Deck::getState(int player,Network::PokerPacket &p){
   initializeHand(player,p.hand,p.deck);
+  p.maxBet = 0;
+  p.Round = true;
 
 }
 
@@ -40,7 +42,7 @@ void Deck::switchCard(int player,int num){
    for(int i = 0; i < num ; i++){
      std::cin >> switchNum[i];
    }
-   initializeHand(player);
+   //initializeHand(player);
    for(int i = 0; i < num; i++){
      discardCard(player,switchNum[i]-1);
      setRandomCard(player);
@@ -74,27 +76,27 @@ void Deck::dealCards(int player){
 }
 
 void Deck::showHand(int player,char *s[5]) {
-	initializeHand(player);
+//	initializeHand(player);
 }
-void Deck::initializeHand(int player) {
-	int index = 0;
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (deck[j][i] == player) {
-					cards[index].first = i;
-					cards[index].second = j;
-					index++;
-
-			}
-		}
-	}
-		if (index < 5) {
-			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
-			exit(-1);
-	}
-
-}
-
+//void Deck::initializeHand(int player) {
+//	int index = 0;
+//		for (int i = 0; i < 13; i++) {
+//			for (int j = 0; j < 4; j++) {
+//				if (deck[j][i] == player) {
+//					cards[index].first = i;
+//					cards[index].second = j;
+//					index++;
+//
+//			}
+//		}
+//	}
+//		if (index < 5) {
+//			std::cout << "Error: Not enough cards dealt\n" << "exiting the program\n";
+//			exit(-1);
+//	}
+//
+//}
+//
 void Deck::initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]) {
 	int index = 0;
 		for (int i = 0; i < 13; i++) {
@@ -121,7 +123,7 @@ void Deck::initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]) {
 
 int Deck::checkHand(int player) {
 
-  initializeHand(player);
+  //initializeHand(player);
   int cardCount = 0;
   int suitCount = 0;
   //Check for num of cards

@@ -8,11 +8,7 @@
 
 
 namespace Network{
-    //struct PokerPacket{
-    //    int deck[4][13];
-    //    std::pair <int,int> hand[5];
-    //};
-
+    
     void init(int &sock,struct sockaddr_in &server,const char* ip){
         sock = socket(AF_INET,SOCK_STREAM,0);
         server.sin_family = AF_INET;

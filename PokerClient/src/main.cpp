@@ -1,8 +1,7 @@
 #include "PokerClient.h"
 
 int main()
-{
-    
-    PokerClient pc(1);
+{   
+    PokerClient pc;
     return 0;
 }

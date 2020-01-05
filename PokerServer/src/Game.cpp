@@ -5,15 +5,26 @@
 
 //Constructor
 Game::Game(){
-
   Network::init(sock,server,"0.0.0.0");
   d.shuffleDeck();
   d.dealCards(1);
   d.getState(1,p);
   d.printDeck();
+  int option = 0;
   int conn = Network::initServer(sock,server);
+  while(p.Round == true){
+      d.shuffleDeck();
+      d.dealCards(1);
+      d.getState(1,p);
+      Network::sendPokerPacket(conn,p);
+      std::cout << "Do you want to send again (1/0): ";
+      std::cin >> option;
+      if(option == 0){
+        p.Round = false;
+      }
+  }
   Network::sendPokerPacket(conn,p);
-
+  
   //Inputs number of players in game
   /*int numOfPlayers = 0;
   std::cout << "Enter num of players(Max 5): ";
@@ -31,7 +42,7 @@ Game::Game(){
   //Runs playing loop
   //While(Game is running){Playing();}
   //Playing();
-
+close(sock);
   
 }
 

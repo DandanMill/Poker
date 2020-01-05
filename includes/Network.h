@@ -11,6 +11,8 @@ namespace Network{
 struct PokerPacket{
         int deck[4][13];
         std::pair <int,int> hand[5];
+        int maxBet;
+        bool Round;
     };
 
 void init(int &sock,struct sockaddr_in &server,const char* ip);

@@ -1,19 +1,25 @@
 #include "PokerClient.h"
 #include <iostream>
 
-PokerClient::PokerClient(int id)
+PokerClient::PokerClient()
 :player(id)
 {
 	Network::init(sock,server,"127.0.0.1");
 	Network::initClient(sock,server);
-    Network::recvPokerPacket(sock,p);
-	showHand();
-	printDeck();
+	player = Player(id);
+	p.Round = true;
+	Play();
+}
 
-    close(sock);
+void PokerClient::Play(){
+	while(p.Round == true){
+	Network::recvPokerPacket(sock,p);
+	showHand();
+	}
 }
 
 void PokerClient::showHand(){
+	std::cout << "You are Player Number: " <<  player.getId() << std::endl;
 	for(int i = 0; i < 5;i++){
 		std::cout << returnCard(p.hand[i].first) << " " << returnSuit(p.hand[i].second) << std::endl;
 	}

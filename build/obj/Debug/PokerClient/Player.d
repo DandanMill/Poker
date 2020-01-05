@@ -1,4 +1,4 @@
-obj/Debug/PokerClient/Player.o: ../PokerServer/src/Player.cpp \
- ../PokerServer/src/../headers/Player.h
+obj/Debug/PokerClient/Player.o: ../PokerClient/src/Player.cpp \
+ ../PokerClient/headers/Player.h
 
-../PokerServer/src/../headers/Player.h:
+../PokerClient/headers/Player.h:
