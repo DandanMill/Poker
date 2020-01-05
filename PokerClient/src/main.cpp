@@ -2,6 +2,7 @@
 
 int main()
 {
-    PokerClient pc;
+    
+    PokerClient pc(1);
     return 0;
 }

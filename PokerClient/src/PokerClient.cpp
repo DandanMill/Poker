@@ -1,7 +1,9 @@
 #include "PokerClient.h"
 #include <iostream>
 
-PokerClient::PokerClient(){
+PokerClient::PokerClient(int id)
+:player(id)
+{
 	Network::init(sock,server,"127.0.0.1");
 	Network::initClient(sock,server);
     Network::recvPokerPacket(sock,p);

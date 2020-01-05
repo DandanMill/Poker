@@ -67,6 +67,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/PokerClient.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/Player.o \
 
 RESOURCES := \
 
@@ -129,6 +130,9 @@ $(OBJDIR)/PokerClient.o: ../PokerClient/src/PokerClient.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: ../PokerClient/src/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Player.o: ../PokerServer/src/Player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
