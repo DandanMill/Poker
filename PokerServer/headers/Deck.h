@@ -17,7 +17,7 @@ class Deck{
 	void discardCard(int player,int card);
 
 
-	void getState(int player,Network::PokerPacket &p);
+	void getState(int player,Network::GameState &g);
 	void initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]);
 	void showHand(int player,char *s[5]);
 //	void initializeHand(int player);

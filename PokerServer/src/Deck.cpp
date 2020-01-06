@@ -28,10 +28,10 @@ void Deck::discardCard(int player,int card){
 }
 
 
-void Deck::getState(int player,Network::PokerPacket &p){
-  initializeHand(player,p.hand,p.deck);
-  p.maxBet = 0;
-  p.Round = true;
+void Deck::getState(int player,Network::GameState &g){
+  initializeHand(player,g.hand,g.deck);
+  g.maxBet = 0;
+  g.called = true;
 
 }
 

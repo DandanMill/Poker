@@ -8,16 +8,16 @@
 
 namespace Network{
 
-struct PokerPacket{
+struct GameState{
         int deck[4][13];
         std::pair <int,int> hand[5];
         int maxBet;
-        bool Round;
+        bool called;
     };
 
 void init(int &sock,struct sockaddr_in &server,const char* ip);
-void sendPokerPacket(int &s,PokerPacket &p);
-void recvPokerPacket(int &s, PokerPacket &p);
+void sendGameState(int &s,GameState &g);
+void recvGameState(int &s, GameState &g);
 int initServer(int &sock,sockaddr_in &server);
 void initClient(int &sock,sockaddr_in &server);
 

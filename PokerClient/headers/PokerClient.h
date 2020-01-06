@@ -12,6 +12,6 @@ class PokerClient{
     private:
     int sock, id = 0;
     sockaddr_in server;
-    Network::PokerPacket p;
+    Network::GameState g;
     Player player;
 };

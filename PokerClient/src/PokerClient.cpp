@@ -7,13 +7,13 @@ PokerClient::PokerClient()
 	Network::init(sock,server,"127.0.0.1");
 	Network::initClient(sock,server);
 	player = Player(id);
-	p.Round = true;
+	g.called = true;
 	Play();
 }
 
 void PokerClient::Play(){
-	while(p.Round == true){
-	Network::recvPokerPacket(sock,p);
+	while(g.called == true){
+	Network::recvGameState(sock,g);
 	showHand();
 	}
 }
@@ -21,14 +21,14 @@ void PokerClient::Play(){
 void PokerClient::showHand(){
 	std::cout << "You are Player Number: " <<  player.getId() << std::endl;
 	for(int i = 0; i < 5;i++){
-		std::cout << returnCard(p.hand[i].first) << " " << returnSuit(p.hand[i].second) << std::endl;
+		std::cout << returnCard(g.hand[i].first) << " " << returnSuit(g.hand[i].second) << std::endl;
 	}
 }
 
 void PokerClient::printDeck(){
 	for(int i = 0; i < 4;i++){
 		for(int j = 0; j < 13;j++){
-			std::cout << p.deck[i][j];
+			std::cout << g.deck[i][j];
 		}
 		std::cout << std::endl;
 	}

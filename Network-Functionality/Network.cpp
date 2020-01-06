@@ -15,12 +15,12 @@ namespace Network{
         server.sin_port = htons(8080);
         inet_pton(AF_INET,ip,&server.sin_addr);
     }    
-    void sendPokerPacket(int &s,Network::PokerPacket &p)
+    void sendGameState(int &s,Network::GameState &g)
     {
-        send(s,&p,sizeof(p),0);
+        send(s,&g,sizeof(g),0);
     }
-    void recvPokerPacket(int &s,Network::PokerPacket &p){
-        recv(s,&p,sizeof(p),0);
+    void recvGameState(int &s,Network::GameState &g){
+        recv(s,&g,sizeof(g),0);
     }
 
     int initServer(int &sock,sockaddr_in &server){

@@ -8,22 +8,22 @@ Game::Game(){
   Network::init(sock,server,"0.0.0.0");
   d.shuffleDeck();
   d.dealCards(1);
-  d.getState(1,p);
+  d.getState(1,g);
   d.printDeck();
   int option = 0;
   int conn = Network::initServer(sock,server);
-  while(p.Round == true){
+  while(g.called == true){
       d.shuffleDeck();
       d.dealCards(1);
-      d.getState(1,p);
-      Network::sendPokerPacket(conn,p);
+      d.getState(1,g);
+      Network::sendGameState(conn,g);
       std::cout << "Do you want to send again (1/0): ";
       std::cin >> option;
       if(option == 0){
-        p.Round = false;
+        g.called = false;
       }
   }
-  Network::sendPokerPacket(conn,p);
+  Network::sendGameState(conn,g);
   
   //Inputs number of players in game
   /*int numOfPlayers = 0;

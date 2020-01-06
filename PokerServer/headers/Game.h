@@ -22,7 +22,7 @@ class Game{
 		int pot = 0;
 		int sock;
 		struct sockaddr_in server;
-		Network::PokerPacket p;
+		Network::GameState g;
 
 };
 
