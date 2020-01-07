@@ -13,10 +13,10 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../libs
-  TARGET = $(TARGETDIR)/libNetworkFunctionality.a
-  OBJDIR = obj/Debug/NetworkFunctionality
+  TARGET = $(TARGETDIR)/libPokerLib.a
+  OBJDIR = obj/Debug/PokerLib
   DEFINES += -DDEBUG
-  INCLUDES += -I../Network-Functionality -I../includes
+  INCLUDES += -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -40,10 +40,10 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../libs
-  TARGET = $(TARGETDIR)/libNetworkFunctionality.a
-  OBJDIR = obj/Release/NetworkFunctionality
+  TARGET = $(TARGETDIR)/libPokerLib.a
+  OBJDIR = obj/Release/PokerLib
   DEFINES += -DNDEBUG
-  INCLUDES += -I../Network-Functionality -I../includes
+  INCLUDES += -I../includes
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -65,7 +65,9 @@ all: prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/Deck.o \
 	$(OBJDIR)/Network.o \
+	$(OBJDIR)/Player.o \
 
 RESOURCES := \
 
@@ -77,7 +79,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking NetworkFunctionality
+	@echo Linking PokerLib
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -100,7 +102,7 @@ else
 endif
 
 clean:
-	@echo Cleaning NetworkFunctionality
+	@echo Cleaning PokerLib
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -124,7 +126,13 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
-$(OBJDIR)/Network.o: ../Network-Functionality/Network.cpp
+$(OBJDIR)/Deck.o: ../PokerLib/Deck.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Network.o: ../PokerLib/Network.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Player.o: ../PokerLib/Player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

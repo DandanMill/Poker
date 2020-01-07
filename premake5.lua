@@ -2,13 +2,13 @@ workspace "Poker"
     configurations { "Debug", "Release"}
     location  "build"
 
-project "NetworkFunctionality"
+project "PokerLib"
     kind "StaticLib"
     language "C++"
     targetdir "./libs"
-    includedirs {"./Network-Functionality/", "./includes"}
+    includedirs {"./includes"}
     libdirs "./libs"
-    files {"./Network-Functionality/**.h", "./Network-Functionality/**.cpp"}
+    files { "./PokerLib/**.cpp"}
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"
@@ -21,10 +21,10 @@ project "NetworkFunctionality"
 project "PokerClient"
    kind "ConsoleApp"
    language "C++"
-   targetdir "PokerClient/bin/%{cfg.buildcfg}"
+   targetdir "bin/"
    includedirs {"./PokerClient/headers", "./includes"}
    libdirs {"./libs"}
-   links {"NetworkFunctionality"}
+   links {"PokerLib"}
    files { "./PokerClient/headers/**.h", "./PokerClient/src/**.cpp"}
 
    filter "configurations:Debug"
@@ -39,10 +39,10 @@ project "PokerClient"
 project "PokerServer"
     kind "ConsoleApp"
     language "C++"
-    targetdir "./PokerServer/bin/%{cfg.buildcfg}"
+    targetdir "./bin/"
     includedirs {"./PokerServer/headers/", "./includes"}
     libdirs {"./libs"}
-    links {"NetworkFunctionality"}
+    links {"PokerLib"}
     files { "./PokerServer/headers/**.h", "./PokerServer/src/**.cpp" }
     filter "configurations:Debug"
         defines { "DEBUG" }

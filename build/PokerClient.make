@@ -12,7 +12,7 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../PokerClient/bin/Debug
+  TARGETDIR = ../bin
   TARGET = $(TARGETDIR)/PokerClient
   OBJDIR = obj/Debug/PokerClient
   DEFINES += -DDEBUG
@@ -22,8 +22,8 @@ ifeq ($(config),debug)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../libs/libNetworkFunctionality.a
-  LDDEPS += ../libs/libNetworkFunctionality.a
+  LIBS += ../libs/libPokerLib.a
+  LDDEPS += ../libs/libPokerLib.a
   ALL_LDFLAGS += $(LDFLAGS) -L../libs
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
@@ -39,7 +39,7 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../PokerClient/bin/Release
+  TARGETDIR = ../bin
   TARGET = $(TARGETDIR)/PokerClient
   OBJDIR = obj/Release/PokerClient
   DEFINES += -DNDEBUG
@@ -49,8 +49,8 @@ ifeq ($(config),release)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../libs/libNetworkFunctionality.a
-  LDDEPS += ../libs/libNetworkFunctionality.a
+  LIBS += ../libs/libPokerLib.a
+  LDDEPS += ../libs/libPokerLib.a
   ALL_LDFLAGS += $(LDFLAGS) -L../libs -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS

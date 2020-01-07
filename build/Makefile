@@ -9,42 +9,42 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
-  NetworkFunctionality_config = debug
+  PokerLib_config = debug
   PokerClient_config = debug
   PokerServer_config = debug
 endif
 ifeq ($(config),release)
-  NetworkFunctionality_config = release
+  PokerLib_config = release
   PokerClient_config = release
   PokerServer_config = release
 endif
 
-PROJECTS := NetworkFunctionality PokerClient PokerServer
+PROJECTS := PokerLib PokerClient PokerServer
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-NetworkFunctionality:
-ifneq (,$(NetworkFunctionality_config))
-	@echo "==== Building NetworkFunctionality ($(NetworkFunctionality_config)) ===="
-	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make config=$(NetworkFunctionality_config)
+PokerLib:
+ifneq (,$(PokerLib_config))
+	@echo "==== Building PokerLib ($(PokerLib_config)) ===="
+	@${MAKE} --no-print-directory -C . -f PokerLib.make config=$(PokerLib_config)
 endif
 
-PokerClient: NetworkFunctionality
+PokerClient: PokerLib
 ifneq (,$(PokerClient_config))
 	@echo "==== Building PokerClient ($(PokerClient_config)) ===="
 	@${MAKE} --no-print-directory -C . -f PokerClient.make config=$(PokerClient_config)
 endif
 
-PokerServer: NetworkFunctionality
+PokerServer: PokerLib
 ifneq (,$(PokerServer_config))
 	@echo "==== Building PokerServer ($(PokerServer_config)) ===="
 	@${MAKE} --no-print-directory -C . -f PokerServer.make config=$(PokerServer_config)
 endif
 
 clean:
-	@${MAKE} --no-print-directory -C . -f NetworkFunctionality.make clean
+	@${MAKE} --no-print-directory -C . -f PokerLib.make clean
 	@${MAKE} --no-print-directory -C . -f PokerClient.make clean
 	@${MAKE} --no-print-directory -C . -f PokerServer.make clean
 
@@ -58,7 +58,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   NetworkFunctionality"
+	@echo "   PokerLib"
 	@echo "   PokerClient"
 	@echo "   PokerServer"
 	@echo ""
