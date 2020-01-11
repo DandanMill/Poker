@@ -17,10 +17,12 @@ class Game{
 		bool isCalled();
 		int getAllBets();
 		void dealCards();
+		void shuffleDeck();
 		void getBets();
 	private:
 		Deck d;
 		std::vector<int> players;
+		std::vector<Network::GameState> gameStates;
 		int pot = 0;
 		int sock;
 		struct sockaddr_in server;

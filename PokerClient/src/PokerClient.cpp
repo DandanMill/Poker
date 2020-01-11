@@ -17,14 +17,23 @@ void PokerClient::Play(){
 		player = Player(g.id);
 		showHand();
 		Bet();
+		int num;
+		std::cout << "How many cards would you like to switch? ";
+		std::cin >> num;
+		d.setDeck(g.deck);
+		d.switchCard(player.getId(),num);
+		d.getDeck(g.deck);
 }
+
 
 void PokerClient::Bet(){
 	Network::recvGameState(sock,g);
 	g.maxBet = player.Play(g.maxBet);
 	player.setMoney(player.getMoney() - player.getBet());
+	g.folded = player.getFolded();
+	g.called = player.getCalled();
+	g.bet = player.getBet();
 	Network::sendGameState(sock,g);
-
 }
 
 void PokerClient::showHand(){

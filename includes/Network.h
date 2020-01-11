@@ -15,6 +15,7 @@ struct GameState{
         int maxBet;
         bool called;
         bool folded;
+        int bet;
         int id;
 };
 

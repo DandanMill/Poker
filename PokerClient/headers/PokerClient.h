@@ -1,5 +1,7 @@
 #include "Network.h"
+#include "Deck.h"
 #include "Player.h"
+
 class PokerClient{
     
     public:
@@ -12,6 +14,7 @@ class PokerClient{
     void Play();
     private:
     int sock, id = 0;
+    Deck d;
     sockaddr_in server;
     Network::GameState g;
     Player player;

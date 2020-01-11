@@ -1,6 +1,7 @@
 workspace "Poker"
     configurations { "Debug", "Release"}
     location  "build"
+    cppdialect "gnu++17"
 
 project "PokerLib"
     kind "StaticLib"

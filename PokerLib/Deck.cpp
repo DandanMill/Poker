@@ -27,6 +27,20 @@ void Deck::discardCard(int player,int card){
 //    deck[cards[card].second][cards[card].first] = -1;
 }
 
+void Deck::setDeck(int d[4][13]){
+  for(int i = 0; i < 4;i++){
+    for(int j = 0; j < 13;j++){
+      deck[i][j] = d[i][j];
+    }
+  }
+}
+void Deck::getDeck(int d[4][13]){
+  for(int i = 0; i < 4;i++){
+      for(int j = 0; j < 13;j++){
+        d[i][j] = deck[i][j];
+    }
+  }
+}
 
 void Deck::getState(int player,Network::GameState &g){
   initializeHand(player,g.hand,g.deck);

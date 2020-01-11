@@ -9,7 +9,7 @@ Game::Game(){
   int option;
   std::cin >> option;
   players.resize(option);
-
+  gameStates.resize(option);
   Network::init(sock,server,"0.0.0.0");
   Network::initServer(sock,server,players);
   Playing();
@@ -22,8 +22,10 @@ void Game::dealCards(){
   for(int i = 0; i < players.size();i++){
     std::cout << "Dealing cards to player number " << i << std::endl;
     d.dealCards(i+1);
-    d.getState(i+1,g);
     d.showHand(i+1);
+  }
+  for(int i = 0; i < players.size();i++){
+    d.getState(i+1,g);
     Network::sendGameState(players[i],g);
   }
 }
@@ -35,14 +37,21 @@ void Game::Playing(){
     dealCards();
     getBets();
     std::cout << "Pot is " << pot << std::endl;
+    shuffleDeck();
 
+}
+
+void Game::shuffleDeck(){
+  for(int i = 0; i < players.size();i++){
+    Network::recvGameState(players[i],g);
+  }
 }
 
 void Game::getBets(){
   for(int i = 0; i < players.size();i++){
     Network::sendGameState(players[i],g);
     Network::recvGameState(players[i],g);
-    pot += g.maxBet;
+    pot +=  g.bet;
   }
 }
  /*

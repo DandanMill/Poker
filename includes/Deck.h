@@ -11,6 +11,8 @@ class Deck{
 	void shuffleDeck();
 	void printDeck();
 	int setCard(int num,int suit,int player);
+	void setDeck(int d[4][13]);
+	void getDeck(int d[4][13]);
 	void switchCard(int player,int num);
 	void setRandomCard(int player);
 	void dealCards(int player);
