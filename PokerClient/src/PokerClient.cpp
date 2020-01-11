@@ -17,17 +17,13 @@ void PokerClient::Play(){
 		player = Player(g.id);
 		showHand();
 		Bet();
-		Network::sendGameState(sock,g);
 }
 
 void PokerClient::Bet(){
 	Network::recvGameState(sock,g);
-	int bet = -1;
-	while(bet < g.maxBet){
-	std::cout << "Enter your bet: ";
-	std::cin >> bet;
-  }
-    g.maxBet = bet;
+	g.maxBet = player.Play(g.maxBet);
+	player.setMoney(player.getMoney() - player.getBet());
+	Network::sendGameState(sock,g);
 
 }
 
