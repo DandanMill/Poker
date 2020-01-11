@@ -5,49 +5,46 @@
 
 //Constructor
 Game::Game(){
+  std::cout << "How many Players will be playing";
+  int option;
+  std::cin >> option;
+  players.resize(option);
+
   Network::init(sock,server,"0.0.0.0");
-  d.shuffleDeck();
-  d.dealCards(1);
-  d.getState(1,g);
-  d.printDeck();
-  int option = 0;
-  int conn = Network::initServer(sock,server);
-  while(g.called == true){
-      d.shuffleDeck();
-      d.dealCards(1);
-      d.getState(1,g);
-      Network::sendGameState(conn,g);
-      std::cout << "Do you want to send again (1/0): ";
-      std::cin >> option;
-      if(option == 0){
-        g.called = false;
-      }
-  }
-  Network::sendGameState(conn,g);
+  Network::initServer(sock,server,players);
+  Playing();
+
+  close(sock);
   
-  //Inputs number of players in game
-  /*int numOfPlayers = 0;
-  std::cout << "Enter num of players(Max 5): ";
-  std::cin >> numOfPlayers;
-  //if There is not at least player theres no point to the game
-  //This will be used later maybe for online playing
-  if(numOfPlayers < 1){
-    return;
+}
+
+void Game::dealCards(){
+  for(int i = 0; i < players.size();i++){
+    std::cout << "Dealing cards to player number " << i << std::endl;
+    d.dealCards(i+1);
+    d.getState(i+1,g);
+    d.showHand(i+1);
+    Network::sendGameState(players[i],g);
   }
-  //Resizes player vector 
-  players.reserve(numOfPlayers);
-  for(int i = 0; i < numOfPlayers;i++){
-    players.emplace_back(Player(i+1));
-  }*/
-  //Runs playing loop
-  //While(Game is running){Playing();}
-  //Playing();
-close(sock);
-  
 }
 
 //Playing loop
 void Game::Playing(){
+    std::cout << "Shuffling Deck\n";
+    d.shuffleDeck();
+    dealCards();
+    getBets();
+    std::cout << "Pot is " << pot << std::endl;
+
+}
+
+void Game::getBets(){
+  for(int i = 0; i < players.size();i++){
+    Network::sendGameState(players[i],g);
+    Network::recvGameState(players[i],g);
+    pot += g.maxBet;
+  }
+}
  /*
   //Shuffles deck
   d.shuffleDeck();
@@ -80,10 +77,9 @@ void Game::Playing(){
   for(int i = 0; i < players.size();i++){
     std::cout << "Player " << players[i].getId() << "'s Money" << players[i].getMoney() << std::endl;
   }*/
-}
 
 //Gets all players bets
-int Game::getAllBets(){
+/*int Game::getAllBets(){
   int ret = 0;
   for(int i = 0; i < players.size();i++){
     ret += players[i].getBet();
@@ -154,3 +150,4 @@ void Game::isPCalled(int maxBet){
     }
 }
 
+*/

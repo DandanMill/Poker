@@ -16,9 +16,11 @@ class Game{
 		void isPCalled(int maxBet);
 		bool isCalled();
 		int getAllBets();
+		void dealCards();
+		void getBets();
 	private:
 		Deck d;
-		std::vector<Player> players;
+		std::vector<int> players;
 		int pot = 0;
 		int sock;
 		struct sockaddr_in server;

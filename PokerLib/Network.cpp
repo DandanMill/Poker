@@ -23,11 +23,12 @@ namespace Network{
         recv(s,&g,sizeof(g),0);
     }
 
-    int initServer(int &sock,sockaddr_in &server){
+    void initServer(int &sock,sockaddr_in &server,std::vector<int> &conns){
         bind(sock,(sockaddr *)&server,sizeof(server));
-        listen(sock,3);
-        int conn = accept(sock,nullptr,nullptr);
-        return conn;   
+        listen(sock,conns.size());
+        for(int j = 0; j < conns.size(); j++){
+           conns[j] = accept(sock,nullptr,nullptr);
+        }
     }
     void initClient(int &sock,sockaddr_in &server){
         connect(sock,(sockaddr *)&server,sizeof(server));

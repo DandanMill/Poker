@@ -8,6 +8,7 @@ class PokerClient{
     const char* returnSuit(int suit);
     void printDeck();
     void showHand();
+    void Bet();
     void Play();
     private:
     int sock, id = 0;

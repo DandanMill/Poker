@@ -15,19 +15,19 @@ class Deck{
 	void setRandomCard(int player);
 	void dealCards(int player);
 	void discardCard(int player,int card);
-
-
+	const char* returnSuit(int suit);
+	const char* returnCard(int num);
 	void getState(int player,Network::GameState &g);
 	void initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]);
-	void showHand(int player,char *s[5]);
-//	void initializeHand(int player);
+	void showHand(int player);
+	void initializeHand(int player);
 	int checkHand(int player);
 	private:
+	int id = 1;
 	int deck[4][13];
 	std::pair <int, int> cards[5];
 };
 
 
 #endif
-//const char* returnSuit(int suit);
-//const char* returnCard(int num);
+

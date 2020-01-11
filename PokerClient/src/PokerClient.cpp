@@ -6,16 +6,29 @@ PokerClient::PokerClient()
 {
 	Network::init(sock,server,"127.0.0.1");
 	Network::initClient(sock,server);
-	player = Player(id);
-	g.called = true;
 	Play();
 }
 
 void PokerClient::Play(){
-	while(g.called == true){
+	
+		std::cout << "Would you like to see your cards? ";
+		std::cin.get();
+		Network::recvGameState(sock,g);
+		player = Player(g.id);
+		showHand();
+		Bet();
+		Network::sendGameState(sock,g);
+}
+
+void PokerClient::Bet(){
 	Network::recvGameState(sock,g);
-	showHand();
-	}
+	int bet = -1;
+	while(bet < g.maxBet){
+	std::cout << "Enter your bet: ";
+	std::cin >> bet;
+  }
+    g.maxBet = bet;
+
 }
 
 void PokerClient::showHand(){
