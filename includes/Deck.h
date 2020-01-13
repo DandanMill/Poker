@@ -3,7 +3,6 @@
 
 #include <string>
 #include <utility>
-#include <Network.h>
 
 class Deck{
 	public:
@@ -19,7 +18,6 @@ class Deck{
 	void discardCard(int player,int card);
 	const char* returnSuit(int suit);
 	const char* returnCard(int num);
-	void getState(int player,Network::GameState &g);
 	void initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]);
 	void showHand(int player);
 	void initializeHand(int player);

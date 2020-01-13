@@ -6,117 +6,12 @@ PokerClient::PokerClient()
 {
 	Network::init(sock,server,"127.0.0.1");
 	Network::initClient(sock,server);
-	Play();
-}
 
-void PokerClient::Play(){
-	
-		std::cout << "Would you like to see your cards? ";
-		std::cin.get();
-		Network::recvGameState(sock,g);
-		player = Player(g.id);
-		showHand();
-		Bet();
-		int num;
-		std::cout << "How many cards would you like to switch? ";
-		std::cin >> num;
-		d.setDeck(g.deck);
-		d.switchCard(player.getId(),num);
-		d.getDeck(g.deck);
-}
+	recv(sock,&id,sizeof(int),0);
+	player = Player(id);
 
-
-void PokerClient::Bet(){
 	Network::recvGameState(sock,g);
-	g.maxBet = player.Play(g.maxBet);
-	player.setMoney(player.getMoney() - player.getBet());
-	g.folded = player.getFolded();
-	g.called = player.getCalled();
-	g.bet = player.getBet();
-	Network::sendGameState(sock,g);
-}
 
-void PokerClient::showHand(){
-	std::cout << "You are Player Number: " <<  player.getId() << std::endl;
-	for(int i = 0; i < 5;i++){
-		std::cout << returnCard(g.hand[i].first) << " " << returnSuit(g.hand[i].second) << std::endl;
-	}
-}
-
-void PokerClient::printDeck(){
-	for(int i = 0; i < 4;i++){
-		for(int j = 0; j < 13;j++){
-			std::cout << g.deck[i][j];
-		}
-		std::cout << std::endl;
-	}
-}
-
-const char* PokerClient::returnSuit(int suit) {
-
-	switch (suit) {
-	case 0:
-		return "Hearts";
-		break;
-	case 1:
-		return "Clubs";
-		break;
-	case 2:
-		return "Diamonds";
-		break;
-	case 3:
-		return "Spades";
-		break;
-	default:
-		return "No suit";
-		break;
-	}
-}
-
-const char* PokerClient::returnCard(int num) {
-
-	switch (num) {
-	case 0:
-		return "A";
-		break;
-	case 1:
-		return "2";
-		break;
-	case 2:
-		return "3";
-		break;
-	case 3:
-		return "4";
-		break;
-	case 4:
-		return "5";
-		break;
-	case 5:
-		return "6";
-		break;
-	case 6:
-		return "7";
-		break;
-	case 7:
-		return "8";
-		break;
-	case 8:
-		return "9";
-		break;
-	case 9:
-		return "10";
-		break;
-	case 10:
-		return "Jack";
-		break;
-	case 11:
-		return "Queen";
-		break;
-	case 12:
-		return "King";
-		break;
-	default:
-		return "Not Num Card";
-		break;
-	}
+	g.d.printDeck();
+		
 }

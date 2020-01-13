@@ -6,16 +6,17 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <utility>
+#include <Player.h>
+#include <Deck.h>
 
 namespace Network{
 
 struct GameState{
-        int deck[4][13];
+        Deck d;
         std::pair <int,int> hand[5];
         int maxBet;
-        bool called;
-        bool folded;
-        int bet;
+        std::vector<Player> players;
+        int bet = 0;
         int id;
 };
 

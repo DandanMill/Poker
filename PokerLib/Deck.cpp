@@ -42,14 +42,6 @@ void Deck::getDeck(int d[4][13]){
   }
 }
 
-void Deck::getState(int player,Network::GameState &g){
-  initializeHand(player,g.hand,g.deck);
-  g.maxBet = 0;
-  g.called = false;
-  g.folded = false;
-  g.id = id;
-  id++;
-}
 
 void Deck::switchCard(int player,int num){
    if(num > 0){

@@ -25,7 +25,7 @@ namespace Network{
 
     void initServer(int &sock,sockaddr_in &server,std::vector<int> &conns){
         bind(sock,(sockaddr *)&server,sizeof(server));
-        listen(sock,conns.size());
+        listen(sock,10);
         for(int j = 0; j < conns.size(); j++){
            conns[j] = accept(sock,nullptr,nullptr);
         }
