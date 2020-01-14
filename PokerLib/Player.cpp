@@ -1,6 +1,10 @@
 #include "Player.h"
 #include <iostream>
 
+Player::Player()
+:money(1000),called(false),folded(false),id(0),bet(0)
+{}
+
 Player::Player(int _id)
 :money(1000),called(false),folded(false),id(_id),bet(0)
 {}

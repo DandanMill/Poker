@@ -14,10 +14,10 @@ namespace Network{
 struct GameState{
         Deck d;
         std::pair <int,int> hand[5];
-        int maxBet;
-        std::vector<Player> players;
+        int maxBet = 0;
+        Player players;
         int bet = 0;
-        int id;
+        int id = 0;
 };
 
 void init(int &sock,struct sockaddr_in &server,const char* ip);

@@ -13,7 +13,7 @@ class PokerClient{
     void Bet();
     void Play();
     private:
-    int sock, id = 0;
+    int connection, id = 0;
     Deck d;
     sockaddr_in server;
     Network::GameState g;

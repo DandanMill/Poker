@@ -3,6 +3,7 @@
 
 class Player{
 public:
+  Player();
   Player(int _id,bool _called);
   Player(int _id);
   int getMoney();

@@ -10,8 +10,11 @@ class Game{
 		Game();
 		void Playing();
 		void dealCards();
+		void getBets();
+		
 	private:
-		std::vector<int> players;
+		std::vector<Player> players;
+		std::vector<int> conns;
 		int pot = 0;
 		int sock;
 		struct sockaddr_in server;
