@@ -57,8 +57,13 @@ void Game::Playing(){
   }
   std::cout << "Pot is: " << pot << std::endl;
   //Check who won-----------------------------
-
+  int winner = checkWon();
   //Update money-----------------------------------------
+  players[winner].setMoney(players[winner].getMoney() + pot);
+  for(int i = 0; i < players.size();i++){
+    std::cout << "Player number " << players[i].getId() << " Has " << players[i].getMoney() << " Chips" << std::endl;
+  }
+  
 }
 
 void Game::switchCards()
@@ -79,6 +84,19 @@ bool Game::checkCAndF(){
     }
   }
   return true;
+}
+
+int Game::checkWon(){
+  int win = 0;
+  int winner = -1;
+  for(int i = 0; i < players.size();i++){
+    if(g.d.checkHand(players[i].getId()) > win){
+      std::cout << "Player number: " << players[i].getId() << "'s hand value " << g.d.checkHand(players[i].getId()) << std::endl;
+      winner = i;
+      win = g.d.checkHand(players[i].getId());
+    }
+  }
+  return winner;
 }
 
 bool Game::onlyPlayer(int i){
@@ -117,11 +135,13 @@ void Game::getBets(){
   for(int i = 0; i < conns.size();i++){
     send(conns[i],&exit,sizeof(exit),0);
     pot += players[i].getBet();
+    players[i].setMoney(players[i].getMoney() - players[i].getBet());
   }
 }
 
 void Game::dealCards(){
   g.d.shuffleDeck();
+  
   for(int i = 1; i <= conns.size();i++){
     g.d.dealCards(i);
   }

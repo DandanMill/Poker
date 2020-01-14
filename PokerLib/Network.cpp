@@ -14,6 +14,7 @@ namespace Network{
         sock = socket(AF_INET,SOCK_STREAM,0);
         if(sock < 0){
             std::cout << "Error could not make socket";
+            close(sock);
             exit(-1);
         }
         server.sin_family = AF_INET;
@@ -31,6 +32,7 @@ namespace Network{
     void initServer(int &sock,sockaddr_in &server,std::vector<int> &conns){
         if(bind(sock,(sockaddr *)&server,sizeof(server)) < 0){
             std::cout << "Error could not bind";
+            close(sock);
             exit(-1);
         }
         listen(sock,10);

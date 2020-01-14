@@ -24,7 +24,7 @@ void Deck::printDeck(){
 
 
 void Deck::discardCard(int player,int card){
-//    deck[cards[card].second][cards[card].first] = -1;
+ deck[cards[card].second][cards[card].first] = -1;
 }
 
 void Deck::setDeck(int d[4][13]){
@@ -45,16 +45,17 @@ void Deck::getDeck(int d[4][13]){
 
 void Deck::switchCard(int player,int num){
    if(num > 0){
-   int switchNum[num] = { 0 };
+   int *switchNum = new int[num];
    std::cout << "Which cards would you like to switch? ";
    for(int i = 0; i < num ; i++){
      std::cin >> switchNum[i];
    }
-   //initializeHand(player);
+   initializeHand(player);
    for(int i = 0; i < num; i++){
      discardCard(player,switchNum[i]-1);
      setRandomCard(player);
    }
+  delete[] switchNum;
   }
 }
 
@@ -135,7 +136,7 @@ void Deck::initializeHand(int player,std::pair<int,int> hand[5],int d[4][13]) {
 
 int Deck::checkHand(int player) {
 
-  //initializeHand(player);
+  initializeHand(player);
   int cardCount = 0;
   int suitCount = 0;
   //Check for num of cards

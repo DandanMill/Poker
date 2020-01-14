@@ -14,6 +14,7 @@ class Game{
 		bool checkCAndF();
 		void switchCards();
 		bool onlyPlayer(int i);
+		int checkWon();
 	private:
 		std::vector<Player> players;
 		std::vector<int> conns;
