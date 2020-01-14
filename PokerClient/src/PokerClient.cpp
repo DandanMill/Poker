@@ -18,23 +18,31 @@ PokerClient::PokerClient()
 	g.d.showHand(player.getId());
 	//Get Bets--------------------------
 	while(exit != 'q'){
-		Network::recvGameState(connection,g);
-		player = g.players;
-		g.maxBet = player.Play(g.maxBet);
-		g.players = player;
-		Network::sendGameState(connection,g);
 		recv(connection,&exit,sizeof(exit),0);
+		if(exit != 'q'){
+			if(player.getFolded() == false){
+			Network::recvGameState(connection,g);
+			player = g.players;
+			g.maxBet = player.Play(g.maxBet);
+			g.players = player;
+			Network::sendGameState(connection,g);
+			}
+		}
 	}
+	std::cout << "Round 2" << std::endl;
 	//Second round of betting-----------
 	exit = ' ';
 	while(exit != 'q'){
-		Network::recvGameState(connection,g);
-		player = g.players;
-		g.maxBet = player.Play(g.maxBet);
-		g.players = player;
-		Network::sendGameState(connection,g);
 		recv(connection,&exit,sizeof(char),0);
+		if(exit != 'q'){
+			if(player.getFolded() == false){
+			Network::recvGameState(connection,g);
+			player = g.players;
+			g.maxBet = player.Play(g.maxBet);
+			g.players = player;
+			Network::sendGameState(connection,g);
+			}	
+		}
 	}
-	std::cout << "bababoui babaoui" << std::endl;
 	close(connection);
 }

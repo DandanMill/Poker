@@ -11,8 +11,8 @@ class Game{
 		void Playing();
 		void dealCards();
 		void getBets();
-		bool checkCalled();
-		
+		bool checkCAndF();
+		void switchCards();
 	private:
 		std::vector<Player> players;
 		std::vector<int> conns;
