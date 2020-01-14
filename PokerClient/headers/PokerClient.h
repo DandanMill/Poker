@@ -9,6 +9,7 @@ class PokerClient{
     const char* returnCard(int num);
     const char* returnSuit(int suit);
     void printDeck();
+    void switchCards();
     void showHand();
     void Bet();
     void Play();

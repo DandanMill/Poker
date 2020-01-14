@@ -16,6 +16,7 @@ struct GameState{
         std::pair <int,int> hand[5];
         int maxBet = 0;
         Player players;
+        bool onlyPlayer = false;
         int bet = 0;
         int id = 0;
 };

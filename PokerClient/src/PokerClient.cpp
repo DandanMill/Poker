@@ -22,15 +22,35 @@ PokerClient::PokerClient()
 		if(exit != 'q'){
 			if(player.getFolded() == false){
 			Network::recvGameState(connection,g);
+			if(g.onlyPlayer == false){
 			player = g.players;
 			g.maxBet = player.Play(g.maxBet);
 			g.players = player;
 			Network::sendGameState(connection,g);
-			}else{
+			}
+			else
+			{
+				player.setCalled(true);
+				g.players = player;
+				Network::sendGameState(connection,g);
+			}
+			}
+			else{
 				std::cout << "You are folded!" << std::endl;
 			}
 		}
 	}
+	//Switch cards-------------------------------------
+	if(player.getFolded() == false){
+		Network::recvGameState(connection,g);
+		switchCards();
+		Network::sendGameState(connection,g);
+		g.d.showHand(player.getId());
+	}
+
+
+
+
 	std::cout << "Round 2" << std::endl;
 	//Second round of betting-----------
 	exit = ' ';
@@ -39,14 +59,30 @@ PokerClient::PokerClient()
 		if(exit != 'q'){
 			if(player.getFolded() == false){
 			Network::recvGameState(connection,g);
-			player = g.players;
-			g.maxBet = player.Play(g.maxBet);
-			g.players = player;
-			Network::sendGameState(connection,g);
-			}else{
+			if(g.onlyPlayer == false){
+				player = g.players;
+				g.maxBet = player.Play(g.maxBet);
+				g.players = player;
+				Network::sendGameState(connection,g);
+			}
+			else{
+				player = g.players;
+				player.setCalled(true);
+				g.players = player;
+				Network::sendGameState(connection,g);
+			}
+			}
+			else{
 				std::cout << "You are folded!" << std::endl;
 			}
 		}
 	}
 	close(connection);
+}
+
+void PokerClient::switchCards(){
+	int num;
+	std::cout << "How many cards would you like to switch? ";
+	std::cin >> num;
+	g.d.switchCard(player.getId(),num);
 }

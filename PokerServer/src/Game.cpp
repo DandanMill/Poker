@@ -39,8 +39,7 @@ void Game::Playing(){
   }
   std::cout << "Pot is: " << pot << std::endl;
   //Switching cards--------------------------------------
-
-
+  switchCards();
   //Switching cards---------------------------------------
   //Second round of betting-------------------------------
   std::cout << "Round 2" << std::endl;
@@ -57,15 +56,39 @@ void Game::Playing(){
     std::cout << "Player number " << players[i].getId() << "'s bet " <<  players[i].getBet() << std::endl;
   }
   std::cout << "Pot is: " << pot << std::endl;
- 
+  //Check who won-----------------------------
+
+  //Update money-----------------------------------------
 }
 
-
+void Game::switchCards()
+{
+  for(int i = 0; i < players.size();i++){
+    if(players[i].getFolded() == false){
+      Network::sendGameState(conns[i],g);
+      Network::recvGameState(conns[i],g);
+    }
+  }
+}
 
 bool Game::checkCAndF(){
   for(int i = 0; i < players.size();i++){
     players[i].checkBet(g.maxBet);
     if(players[i].getCalled() == false && players[i].getFolded() == false){
+      return false;
+    }
+  }
+  return true;
+}
+
+bool Game::onlyPlayer(int i){
+  for(int j = i+1;j < players.size();j++){
+    if(players[j].getFolded() == false){
+      return false;
+    }
+  }
+  for(int j = i-1;j >= 0;j--){
+    if(players[j].getFolded() == false){
       return false;
     }
   }
@@ -78,6 +101,7 @@ void Game::getBets(){
     while(!checkCAndF()){
       send(conns[i],&exit,sizeof(exit),0);
       if(players[i].getFolded() == false){
+      g.onlyPlayer = onlyPlayer(i);
       g.players = players[i];
       Network::sendGameState(conns[i],g);
       Network::recvGameState(conns[i],g);

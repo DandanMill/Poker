@@ -13,6 +13,7 @@ class Game{
 		void getBets();
 		bool checkCAndF();
 		void switchCards();
+		bool onlyPlayer(int i);
 	private:
 		std::vector<Player> players;
 		std::vector<int> conns;
