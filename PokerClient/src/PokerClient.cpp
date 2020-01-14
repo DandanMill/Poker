@@ -8,11 +8,12 @@ PokerClient::PokerClient()
 	//Initialization-----------------------------
 	Network::init(connection,server,"127.0.0.1");
 	Network::initClient(connection,server);
-	char exit = ' ';
 	//Get Id--------------------------
 	recv(connection,&id,sizeof(int),0);
 	player = Player(id);
 	//Get Cards------------------------
+	while(1){
+	char exit = ' ';
 	Network::recvGameState(connection,g);
 	std::cout << "You are player number: " << player.getId() << std::endl;
 	g.d.showHand(player.getId());
@@ -77,6 +78,14 @@ PokerClient::PokerClient()
 			}
 		}
 	}
+	recv(connection,&exit,sizeof(char),0);
+	if(exit == 'w'){
+		std::cout << "You Won!\nYou're hand value is " << g.d.checkHand(player.getId()) << std::endl;
+	}
+	else{
+		std::cout << "You Lost:(\nYou're hand value is " << g.d.checkHand(player.getId()) << std::endl;
+	}
+  }
 	close(connection);
 }
 

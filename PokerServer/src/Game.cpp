@@ -26,7 +26,11 @@ Game::Game(){
 }
 
 void Game::Playing(){
-  
+  while(1){
+  for(int i = 0; i < players.size();i++){
+    players[i].resetCF();
+    players[i].setBet(0);
+  }
   //Deal Cards------------------------------------------
   dealCards();
   //First round of betting-----------------------------
@@ -63,7 +67,16 @@ void Game::Playing(){
   for(int i = 0; i < players.size();i++){
     std::cout << "Player number " << players[i].getId() << " Has " << players[i].getMoney() << " Chips" << std::endl;
   }
-  
+  for(int i = 0; i < players.size();i++){
+    char exit;
+    if(i == winner){
+     exit = 'w';
+    }else{
+     exit = 'a';
+    }
+    send(conns[i],&exit,sizeof(char),0);
+  }
+  }
 }
 
 void Game::switchCards()
@@ -90,11 +103,13 @@ int Game::checkWon(){
   int win = 0;
   int winner = -1;
   for(int i = 0; i < players.size();i++){
+    if(players[i].getCalled() == true && players[i].getFolded() == false){
     if(g.d.checkHand(players[i].getId()) > win){
       std::cout << "Player number: " << players[i].getId() << "'s hand value " << g.d.checkHand(players[i].getId()) << std::endl;
       winner = i;
       win = g.d.checkHand(players[i].getId());
     }
+   }
   }
   return winner;
 }
@@ -117,8 +132,8 @@ void Game::getBets(){
     char exit = ' ';
     int i = 0;
     while(!checkCAndF()){
-      send(conns[i],&exit,sizeof(exit),0);
       if(players[i].getFolded() == false){
+      send(conns[i],&exit,sizeof(exit),0);  
       g.onlyPlayer = onlyPlayer(i);
       g.players = players[i];
       Network::sendGameState(conns[i],g);
