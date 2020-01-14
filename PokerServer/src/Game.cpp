@@ -28,8 +28,8 @@ Game::Game(){
 void Game::Playing(){
   while(1){
   for(int i = 0; i < players.size();i++){
-    players[i].resetCF();
-    players[i].setBet(0);
+    Network::recvGameState(conns[i],g);
+    players[i] = g.players;
   }
   //Deal Cards------------------------------------------
   dealCards();
@@ -132,8 +132,8 @@ void Game::getBets(){
     char exit = ' ';
     int i = 0;
     while(!checkCAndF()){
-      if(players[i].getFolded() == false){
       send(conns[i],&exit,sizeof(exit),0);  
+      if(players[i].getFolded() == false){
       g.onlyPlayer = onlyPlayer(i);
       g.players = players[i];
       Network::sendGameState(conns[i],g);
