@@ -7,7 +7,7 @@ project "PokerLib"
     kind "StaticLib"
     language "C++"
     targetdir "./libs"
-    includedirs {"./includes"}
+    includedirs {"./PokerLib/includes"}
     libdirs "./libs"
     files { "./PokerLib/**.cpp"}
     filter "configurations:Debug"
@@ -23,7 +23,7 @@ project "PokerClient"
    kind "ConsoleApp"
    language "C++"
    targetdir "bin/"
-   includedirs {"./PokerClient/headers", "./includes"}
+   includedirs {"./PokerClient/headers", "./PokerLib/includes"}
    libdirs {"./libs"}
    links {"PokerLib"}
    files { "./PokerClient/headers/**.h", "./PokerClient/src/**.cpp"}
@@ -41,7 +41,7 @@ project "PokerServer"
     kind "ConsoleApp"
     language "C++"
     targetdir "./bin/"
-    includedirs {"./PokerServer/headers/", "./includes"}
+    includedirs {"./PokerServer/headers/", "./PokerLib/includes"}
     libdirs {"./libs"}
     links {"PokerLib"}
     files { "./PokerServer/headers/**.h", "./PokerServer/src/**.cpp" }
