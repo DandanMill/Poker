@@ -11,6 +11,7 @@ class Game{
 		void Playing();
 		void dealCards();
 		void getBets();
+		bool checkCalled();
 		
 	private:
 		std::vector<Player> players;

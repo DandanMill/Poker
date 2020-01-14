@@ -9,9 +9,9 @@ Game::Game(){
   std::cin >> option;
   conns.resize(option);
   players.reserve(option);
-  /*for(int i = 0; i < players.capacity();i++){
-    players.emplace_back(Player());
-  }*/
+  for(int i = 0; i < players.capacity();i++){
+    players.emplace_back(Player(i+1));
+  }
   Network::initServer(sock,server,conns);
   
   //Playing Loop Call
@@ -26,6 +26,7 @@ void Game::Playing(){
     int j = i + 1;
     send(conns[i],&j,sizeof(j),0);
   }
+  while(1){
   //Deal Cards------------------------------------------
   dealCards();
   //First round of betting-----------------------------
@@ -36,21 +37,52 @@ void Game::Playing(){
   std::cout << "Pot is: " << pot << std::endl;
   //Second round of betting-------------------------------
   std::cout << "Round 2" << std::endl;
+  for(int i = 0; i < conns.size();i++){
+    std::cout << "Deleting " << i << "'s bets" << std::endl;
+    players[i].setCalled(false);
+    players[i].setBet(0);
+  }
   g.maxBet = 0;
+  std::cout << "Getting second round of bets" << std::endl;
   getBets();
   for(int i = 0; i < conns.size();i++){
     std::cout << "Player number " << players[i].getId() << "'s bet " <<  players[i].getBet() << std::endl;
   }
   std::cout << "Pot is: " << pot << std::endl;
+ 
+  }
+}
+
+
+bool Game::checkCalled(){
+  for(int i = 0; i < players.size();i++){
+    players[i].checkBet(g.maxBet);
+    if(players[i].getCalled() == false){
+      return false;
+    }
+  }
+  return true;
 }
 
 void Game::getBets(){
-  for(int i = 0; i < conns.size();i++){
+    char exit = ' ';
+    int i = 0;
+    while(!checkCalled()){
+    g.players = players[i];
     Network::sendGameState(conns[i],g);
     Network::recvGameState(conns[i],g);
     players[i] = g.players;
-    pot += players[i].getBet();
+    send(conns[i],&exit,sizeof(exit),0);
+    i++;
+    if(i >= players.size()){
+      i = 0;
+    }
   }
+  exit = 'q';
+  for(int i = 0; i < conns.size();i++){
+    send(conns[i],&exit,sizeof(exit),0);
+  }
+  std::cout << "bababoui babaoui" << std::endl;
 }
 
 void Game::dealCards(){
