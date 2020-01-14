@@ -26,6 +26,8 @@ PokerClient::PokerClient()
 			g.maxBet = player.Play(g.maxBet);
 			g.players = player;
 			Network::sendGameState(connection,g);
+			}else{
+				std::cout << "You are folded!" << std::endl;
 			}
 		}
 	}
@@ -41,7 +43,9 @@ PokerClient::PokerClient()
 			g.maxBet = player.Play(g.maxBet);
 			g.players = player;
 			Network::sendGameState(connection,g);
-			}	
+			}else{
+				std::cout << "You are folded!" << std::endl;
+			}
 		}
 	}
 	close(connection);

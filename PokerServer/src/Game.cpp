@@ -32,6 +32,9 @@ void Game::Playing(){
   //First round of betting-----------------------------
   getBets();
   for(int i = 0; i < conns.size();i++){
+    if(players[i].getFolded() == true){
+      std::cout << "Player number " << players[i].getId() << " is folded" << std::endl;
+    }else
     std::cout << "Player number " << players[i].getId() << "'s bet " <<  players[i].getBet() << std::endl;
   }
   std::cout << "Pot is: " << pot << std::endl;
@@ -48,6 +51,9 @@ void Game::Playing(){
   g.maxBet = 0;
   getBets();
   for(int i = 0; i < conns.size();i++){
+    if(players[i].getFolded() == true){
+      std::cout << "Player number " << players[i].getId() << " is folded" << std::endl;
+    }else
     std::cout << "Player number " << players[i].getId() << "'s bet " <<  players[i].getBet() << std::endl;
   }
   std::cout << "Pot is: " << pot << std::endl;
@@ -57,14 +63,13 @@ void Game::Playing(){
 
 
 bool Game::checkCAndF(){
-  bool b = true;
   for(int i = 0; i < players.size();i++){
     players[i].checkBet(g.maxBet);
     if(players[i].getCalled() == false && players[i].getFolded() == false){
-      b = false;
+      return false;
     }
   }
-  return b;
+  return true;
 }
 
 void Game::getBets(){
@@ -77,11 +82,12 @@ void Game::getBets(){
       Network::sendGameState(conns[i],g);
       Network::recvGameState(conns[i],g);
       players[i] = g.players;
+      }
       i++;
       if(i >= players.size()){
         i = 0;
        }
-      }
+      
     }
   exit = 'q';
   for(int i = 0; i < conns.size();i++){
