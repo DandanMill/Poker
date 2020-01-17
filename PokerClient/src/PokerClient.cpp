@@ -1,17 +1,21 @@
 #include "PokerClient.h"
 #include <iostream>
-
+#include <string>
 PokerClient::PokerClient()
 :player(id)
 {
 	
 	//Initialization-----------------------------
-	Network::init(connection,server,"127.0.0.1");
+	std::string ip;
+	std::cout << "Enter ip address" << std::endl;
+	std::cin >> ip;
+	Network::init(connection,server,ip.c_str());
 	Network::initClient(connection,server);
 	//Get Id--------------------------
 	recv(connection,&id,sizeof(int),0);
 	player = Player(id);
 	while(1){
+	std::cout << "You have " << player.getMoney() << " Chips" << std::endl;
 	player.resetCF();
 	player.setBet(0);
 	g.players = player;
